@@ -187,23 +187,32 @@ const totalComments = isPost && entry.data.comments
     <div class="shell">
       {
         isOverviewPage ? (
-          <div class="training-grid">
-            {entry.data.cards.map((card) => (
-              <article class="training-card">
-                <h3>{card.title}</h3>
-                <p class="training-card__subtitle">{card.subtitle}</p>
-                <p class="training-card__price">€ {card.price}</p>
-                <p class="training-card__period">{card.period}</p>
-                <ul class="training-card__features">
-                  {card.features.map((feature) => (
-                    <li>{feature}</li>
-                  ))}
-                </ul>
-                <a class="button" href={card.href}>{card.buttonLabel ?? "Lees meer..."}</a>
-                {card.footerNote && <p class="training-card__note">{card.footerNote}</p>}
-              </article>
-            ))}
-          </div>
+          <>
+            {hasBody && (
+              <section class="overview-intro notice-band">
+                <div class={proseClass}>
+                  <Content />
+                </div>
+              </section>
+            )}
+            <div class="training-grid">
+              {entry.data.cards.map((card) => (
+                <article class="training-card">
+                  <h3>{card.title}</h3>
+                  <p class="training-card__subtitle">{card.subtitle}</p>
+                  <p class="training-card__price">€ {card.price}</p>
+                  <p class="training-card__period">{card.period}</p>
+                  <ul class="training-card__features">
+                    {card.features.map((feature) => (
+                      <li>{feature}</li>
+                    ))}
+                  </ul>
+                  <a class="button" href={card.href}>{card.buttonLabel ?? "Lees meer..."}</a>
+                  {card.footerNote && <p class="training-card__note">{card.footerNote}</p>}
+                </article>
+              ))}
+            </div>
+          </>
         ) : null
       }
 

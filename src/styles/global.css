@@ -559,6 +559,21 @@ main { min-height: 60vh; }
   padding-top: 24px;
 }
 
+.overview-intro {
+  margin-top: 24px;
+  margin-bottom: 8px;
+}
+
+.overview-intro .prose {
+  max-width: 72ch;
+  margin-inline: auto;
+}
+
+.overview-intro .prose p {
+  margin-bottom: 0;
+  font-size: 15px;
+}
+
 .training-card {
   display: flex;
   flex-direction: column;
@@ -573,6 +588,11 @@ main { min-height: 60vh; }
 .training-card__note {
   color: var(--muted);
   font-size: 13px;
+}
+
+.training-card__note {
+  line-height: 1.45;
+  min-height: calc(2 * 1.45em);
 }
 .training-card__price {
   margin: .8rem 0 .2rem;
