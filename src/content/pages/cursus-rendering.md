@@ -1,25 +1,31 @@
 ---
-title: "Cursus Vectorworks Rendering"
-description: "Het maken van renders in Vectorworks is een fijne balans tussen kwaliteits instellingen en render tijd."
+title: "Vectorworks Rendering cursus"
+description: "Praktische Vectorworks Rendering cursus voor de evenementenbranche. Leer beter renderen in Vectorworks en krijg meer controle over texturen, belichting en rendertijd."
 kind: "course"
 sidebar:
-  title: "Kosten:"
+  title: "Cursusinformatie:"
   paragraphs:
-    - "De kosten voor de training bedragen €195,- per persoon excl. BTW."
-    - "De training is zowel individueel als in groepsverband te boeken."
-    - "Ik probeer groepen samen te stellen van 4 personen. De training kan doorgaan vanaf 3 personen."
-    - "De lesdata zijn in onderling overleg te bepalen. Je hoeft dus niet in te schrijven op een vooraf bepaalde datum."
+    - "Prijs: € 195,- per persoon excl. BTW"
+    - "Aantal deelnemers: groep van minimaal 3 deelnemers, individuele deelname mogelijk"
+    - "Tijdsduur: 1 dag à 6 uur"
+    - "Dag: woensdag, donderdag of vrijdag"
+    - "Locatie: op jouw gewenste locatie of in het trainingslokaal in ‘s-Hertogenbosch (Parallelweg 30)"
   cta:
     label: "AANMELDEN"
     href: "/aanmelden/"
-links:
-  - label: "Vectorworks Spotlight cursus"
-    href: "/cursus-spotlight/"
 ---
 
-## 1-Daagse cursus Rendering
+## Eendaagse cursus Rendering
 
-Het maken van renders in Vectorworks is een fijne balans tussen kwaliteits instellingen en render tijd. Tijdens de cursus Vectorworks rendering leer je de technieken waarmee je een indrukwekkende realistische visual kan maken van je ontwerp. Samen oefenen we hierbij zowel met een evenementen gerelateerde scene als met een algemene omgeving.
+Wil je jouw ontwerp overtuigend presenteren in Vectorworks? Een render bestaat uit 4 elementen: de getekende geometrie, texturen, belichting en rendertechnieken. Tijdens de Vectorworks Rendering cursus leer je hoe die onderdelen samenkomen in een sterke visual van je ontwerp.
+
+## Voor wie is deze cursus interessant?
+
+Heb je de [Vectorworks Basis Cursus](/cursus-vectorworks-basis/) gevolgd of heb je dit niveau vanuit eigen ervaring? En wil je beter leren renderen in Vectorworks voor presentaties, visualisaties of ontwerpvoorstellen? Dan is de Vectorworks Rendering cursus interessant voor jou.
+
+## De inhoud van de Vectorworks Rendering cursus
+
+De volgende onderwerpen komen zoal aan bod tijdens de Vectorworks Rendering cursus:
 
 - Render modes
 - Textures
@@ -30,6 +36,20 @@ Het maken van renders in Vectorworks is een fijne balans tussen kwaliteits inste
 - Backgrounds
 - Renderworks Styles
 
-Voor deze training moeten de deelnemers kennis hebben van Vectorworks op het niveau van de Vectorworks Basis training.
+Natuurlijk brengen we de theorie ook direct in de praktijk met oefeningen. Tijdens de training werk je stap voor stap aan het opbouwen van overtuigende renders, zodat je daarna zelfstandig verder kunt met je eigen visualisaties.
 
-De training kan plaats vinden op locatie van uw organisatie of in ons leslokaal in ‘s-Hertogenbosch. Ook behoren online trainingen tot de mogelijkheden. Trainingen vinden altijd plaats op woensdag, donderdag of vrijdag en kunnen indien nodig over meerdere weken verdeeld worden.
+## Aanmelden voor de Vectorworks Rendering cursus
+
+Ben je geïnteresseerd in deze cursus? Maak dan gebruik van het [aanmeldformulier](/aanmelden/). Meld je je met minimaal 3 personen aan? Dan plannen we direct een datum.
+
+Individueel aanmelden is ook mogelijk. Zodra 3 deelnemers zich hebben aangemeld, probeer ik met alle deelnemers de data te plannen d.m.v. een datumprikker. Kijk voor meer informatie op de pagina met [veelgestelde vragen](/faq/) of neem [contact](/contact/) op.
+
+## De Vectorworks Rendering cursus combineren
+
+Wil je eerst leren hoe je 3D objecten en decors opbouwt in Vectorworks? Volg dan eerst:
+
+[Vectorworks 3D Cursus (1 dag) >](/cursus-3d/)
+
+Werk je vooral met technisch ontwerp en eventvisualisatie in Spotlight? Dan sluit deze cursus ook goed aan op:
+
+[Vectorworks Spotlight Cursus (1 dag) >](/cursus-spotlight/)
