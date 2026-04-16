@@ -1,33 +1,53 @@
 ---
-title: "Cursus Vectorworks 3D"
-description: "Tijdens de cursus Vectorworks 3D leer je de tools om 3D objecten te kunnen modelleren."
+title: "Vectorworks 3D cursus"
+description: "Praktische Vectorworks 3D cursus voor de evenementenbranche. Leer 3D objecten, decors en symbolen modelleren in Vectorworks."
 kind: "course"
 sidebar:
-  title: "Kosten:"
+  title: "Cursusinformatie:"
   paragraphs:
-    - "De kosten voor de training bedragen €195,- per persoon excl. BTW."
-    - "De training is zowel individueel als in groepsverband te boeken."
-    - "Ik probeer groepen samen te stellen van 4 personen. De training kan doorgaan vanaf 3 personen."
-    - "De lesdata zijn in onderling overleg te bepalen. Je hoeft dus niet in te schrijven op een vooraf bepaalde datum."
+    - "Prijs: € 195,- per persoon excl. BTW"
+    - "Aantal deelnemers: groep van minimaal 3 deelnemers, individuele deelname mogelijk"
+    - "Tijdsduur: 1 dag à 6 uur"
+    - "Dag: woensdag, donderdag of vrijdag"
+    - "Locatie: op jouw gewenste locatie of in het trainingslokaal in ‘s-Hertogenbosch (Parallelweg 30)"
   cta:
     label: "AANMELDEN"
     href: "/aanmelden/"
-links:
-  - label: "Vectorworks Basis Cursus"
-    href: "/cursus-vectorworks-basis/"
 ---
 
-## Eendaagse cursus 3D-modeling
+## Eendaagse cursus 3D
 
-Tijdens de cursus Vectorworks 3D leer je de tools om 3D objecten te kunnen modelleren. Bij het ontwerpen van decors of het zelf maken van 3D symbolen komen deze vaardigheden goed van pas. Denk ook aan het in 3D opmaken van een locatie tekening. Tijdens deze training worden de 3D-tools een voor een behandeld, tijdens de opdrachten worden, onder begeleiding, direct de eerste virtuele decorstukken getekend. In het programma komt onder andere aan bod:
+Wil je in Vectorworks zelf 3D objecten modelleren? Tijdens de Vectorworks 3D cursus leer je hoe je decors, maatwerkobjecten en 3D symbolen opbouwt. Ook als je een locatietekening in 3D wilt opzetten, geeft deze training je een praktische basis om daar zelfstandig mee verder te werken.
 
-- 3D-Views en navigatie
+## Voor wie is deze cursus interessant?
+
+Heb je de [Vectorworks Basis Cursus](/cursus-vectorworks-basis/) gevolgd of heb je dit niveau vanuit eigen ervaring? En wil je verder met het modelleren van objecten, decors en 3D symbolen in Vectorworks? Dan is de Vectorworks 3D cursus interessant voor jou.
+
+## De inhoud van de Vectorworks 3D cursus
+
+De volgende onderwerpen komen zoal aan bod tijdens de Vectorworks 3D cursus:
+
+- 3D-views en navigatie
 - Extrudes
-- Add / Substract solids
-- 3D-modeling Toolset
-- 3D- en Hybride symbolen
+- Add / Subtract Solids
+- 3D Modeling toolset
+- 3D- en hybride symbolen
 - Textures
 
-Voor deze training moeten de deelnemers kennis van Vectorworks hebben op het niveau van de Vectorworks Basis training.
+Natuurlijk brengen we de theorie ook direct in de praktijk met oefeningen. Tijdens de training modelleer je onder begeleiding de eerste objecten zelf in 3D.
 
-De training kan plaats vinden op locatie van uw organisatie of in ons leslokaal in ‘s-Hertogenbosch. Ook behoren online trainingen tot de mogelijkheden. Trainingen vinden altijd plaats op woensdag, donderdag of vrijdag en kunnen indien nodig over meerdere weken verdeeld worden.
+## Aanmelden voor de Vectorworks 3D cursus
+
+Ben je geïnteresseerd in deze cursus? Maak dan gebruik van het [aanmeldformulier](/aanmelden/). Meld je je met minimaal 3 personen aan? Dan plannen we direct een datum.
+
+Individueel aanmelden is ook mogelijk. Zodra 3 deelnemers zich hebben aangemeld, probeer ik met alle deelnemers de data te plannen d.m.v. een datumprikker. Kijk voor meer informatie op de pagina met [veelgestelde vragen](/faq/) of neem [contact](/contact/) op.
+
+## De Vectorworks 3D cursus combineren
+
+Heb je nog geen of weinig ervaring met Vectorworks? Volg dan eerst de basiscursus:
+
+[Vectorworks Basis Cursus (3 dagen) >](/cursus-vectorworks-basis/)
+
+Wil je jouw 3D modellen daarna ook overtuigend presenteren? Vul de Vectorworks 3D cursus dan aan met:
+
+[Vectorworks Rendering Cursus (1 dag) >](/cursus-rendering/)
