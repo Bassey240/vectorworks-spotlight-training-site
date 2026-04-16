@@ -38,6 +38,7 @@ export const site = {
   navigation: [
     { label: "Trainingen", href: "/trainingen/" },
     { label: "Tekenwerk", href: "/2d-3d-tekenwerk/" },
+    { label: "Plugins", href: "/plugins-en-scripts/" },
     { label: "Nieuws", href: "/nieuws/" },
     { label: "Over mij", href: "/over-mij/" },
     { label: "FAQ", href: "/faq/" },
