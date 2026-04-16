@@ -1,0 +1,36 @@
+---
+const status = Astro.url.searchParams.get("status");
+
+const messages: Record<string, { tone: "success" | "error"; text: string }> = {
+  success: {
+    tone: "success",
+    text: "Je bericht is verzonden. Ik neem zo snel mogelijk contact met je op."
+  },
+  invalid: {
+    tone: "error",
+    text: "Controleer de verplichte velden en probeer het opnieuw."
+  },
+  throttled: {
+    tone: "error",
+    text: "Er zijn net meerdere pogingen ontvangen. Wacht even en probeer het daarna opnieuw."
+  },
+  blocked: {
+    tone: "error",
+    text: "De inzending is geblokkeerd. Neem contact op per e-mail als dit onterecht lijkt."
+  },
+  error: {
+    tone: "error",
+    text: "Er ging iets mis bij het verzenden. Probeer het opnieuw of mail direct."
+  }
+};
+
+const message = status ? messages[status] : undefined;
+---
+
+{
+  message && (
+    <p class:list={["form-status", message.tone === "success" ? "form-status--success" : "form-status--error"]}>
+      {message.text}
+    </p>
+  )
+}

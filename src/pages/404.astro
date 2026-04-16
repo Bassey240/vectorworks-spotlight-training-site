@@ -1,0 +1,26 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Pagina niet gevonden | STB Services"
+  description="De gevraagde pagina bestaat niet meer of is verplaatst."
+  pathname="/404/"
+>
+  <section class="not-found">
+    <div class="shell">
+      <div class="panel">
+        <p class="section-heading__eyebrow">404</p>
+        <h1>Pagina niet gevonden</h1>
+        <p>
+          De URL die je hebt geopend bestaat niet of is aangepast. Gebruik de hoofd­navigatie of ga direct
+          naar het trainingsoverzicht.
+        </p>
+        <div class="page-hero__actions">
+          <a class="button" href="/trainingen/">Bekijk trainingen</a>
+          <a class="button button--ghost" href="/contact/">Neem contact op</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

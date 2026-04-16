@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" role="img" aria-label="STB favicon">
+  <defs>
+    <linearGradient id="g" x1="0%" x2="100%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#1d4f8f" />
+      <stop offset="100%" stop-color="#e08b2f" />
+    </linearGradient>
+  </defs>
+  <rect width="96" height="96" rx="24" fill="url(#g)" />
+  <text x="48" y="56" text-anchor="middle" font-size="34" font-family="Arial, sans-serif" font-weight="700" fill="#ffffff">
+    STB
+  </text>
+</svg>

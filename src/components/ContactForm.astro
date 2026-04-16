@@ -1,0 +1,43 @@
+---
+import FormStatus from "@/components/FormStatus.astro";
+---
+
+<div class="form-shell">
+  <FormStatus />
+  <form class="site-form" action="/api/contact.php" method="post" novalidate>
+    <input type="hidden" name="form_started_at" value="" data-js-timestamp />
+    <input type="hidden" name="company_site" value="" />
+
+    <label>
+      <span>Bedrijfsnaam</span>
+      <input name="company" type="text" autocomplete="organization" placeholder="Bedrijfsnaam" />
+    </label>
+
+    <label>
+      <span>Naam *</span>
+      <input name="name" type="text" required autocomplete="name" placeholder="Naam*" />
+    </label>
+
+    <label>
+      <span>Telefoonnummer *</span>
+      <input name="phone" type="tel" required autocomplete="tel" placeholder="Telefoon nummer*" />
+    </label>
+
+    <label>
+      <span>E-mailadres *</span>
+      <input name="email" type="email" required autocomplete="email" placeholder="Email*" />
+    </label>
+
+    <label>
+      <span>Vraag of bericht *</span>
+      <textarea name="message" rows="6" required placeholder="Uw vraag"></textarea>
+    </label>
+
+    <label class="site-form__checkbox">
+      <input name="privacy_accepted" type="checkbox" value="1" required />
+      <span>Ja, ik ga akkoord met de <a href="/privacyverklaring/">privacyverklaring</a>.</span>
+    </label>
+
+    <button class="button" type="submit">Verzenden</button>
+  </form>
+</div>

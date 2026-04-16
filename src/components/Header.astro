@@ -1,0 +1,60 @@
+---
+import { site } from "@/lib/site";
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="site-header__brand" href="/" aria-label={`${site.name} home`}>
+      <img
+        class="site-header__logo"
+        src="/wp-content/uploads/2020/04/Vectorworks-Spotlight-Training-STB-Logo-BLACK-409x90.png"
+        alt="Vectorworks Spotlight Cursus STB"
+        width="409"
+        height="90"
+      />
+    </a>
+
+    <details class="site-header__mobile">
+      <summary class="site-header__menu-toggle">Menu</summary>
+      <nav class="site-header__mobile-nav" aria-label="Mobiele navigatie">
+        <ul>
+          <li>
+            <a href="/trainingen/" aria-current={pathname === "/trainingen/" ? "page" : undefined}>Trainingen</a>
+          </li>
+          {site.trainingMenu.map((item) => (
+            <li class="site-header__mobile-subitem">
+              <a href={item.href} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</a>
+            </li>
+          ))}
+          {site.navigation.slice(1).map((item) => (
+            <li>
+              <a href={item.href} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </details>
+
+    <nav class="site-header__nav" aria-label="Primaire site navigatie">
+      <ul>
+        <li class="site-header__menu-item site-header__menu-item--has-children">
+          <a href="/trainingen/" aria-current={pathname === "/trainingen/" ? "page" : undefined}>Trainingen</a>
+          <ul class="site-header__submenu">
+            {site.trainingMenu.map((item) => (
+              <li>
+                <a href={item.href} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</a>
+              </li>
+            ))}
+          </ul>
+        </li>
+        {site.navigation.slice(1).map((item) => (
+          <li class="site-header__menu-item">
+            <a href={item.href} aria-current={pathname === item.href ? "page" : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>

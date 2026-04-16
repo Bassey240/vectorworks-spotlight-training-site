@@ -1,0 +1,88 @@
+---
+const options = [
+  "3-Daagse cursus Vectorworks Basis",
+  "1-Daagse cursus Vectorworks Spotlight",
+  "1-Daagse cursus Vectorworks 3D-modeling",
+  "1-Daagse cursus Vectorworks Rendering en Visualisatie",
+  "Maatwerk Training",
+  "2D- en 3D-tekenwerk en visualisatie"
+];
+
+import FormStatus from "@/components/FormStatus.astro";
+---
+
+<div class="form-shell">
+  <FormStatus />
+  <form class="site-form" action="/api/aanmelden.php" method="post" novalidate>
+    <input type="hidden" name="form_started_at" value="" data-js-timestamp />
+    <input type="hidden" name="company_site" value="" />
+
+    <label>
+      <span>Bedrijfsnaam</span>
+      <input name="company" type="text" autocomplete="organization" placeholder="Bedrijfsnaam" />
+    </label>
+
+    <label>
+      <span>Naam *</span>
+      <input name="name" type="text" required autocomplete="name" placeholder="Naam*" />
+    </label>
+
+    <label>
+      <span>Adres</span>
+      <input name="address" type="text" autocomplete="street-address" placeholder="Adres" />
+    </label>
+
+    <div class="site-form__grid">
+      <label>
+        <span>Postcode</span>
+        <input name="postal_code" type="text" autocomplete="postal-code" placeholder="Postcode" />
+      </label>
+
+      <label>
+        <span>Woonplaats</span>
+        <input name="city" type="text" autocomplete="address-level2" placeholder="Woonplaats" />
+      </label>
+    </div>
+
+    <div class="site-form__grid">
+      <label>
+        <span>Telefoonnummer *</span>
+        <input name="phone" type="tel" required autocomplete="tel" placeholder="Telefoon nummer*" />
+      </label>
+
+      <label>
+        <span>E-mailadres *</span>
+        <input name="email" type="email" required autocomplete="email" placeholder="Email*" />
+      </label>
+    </div>
+
+    <fieldset class="site-form__fieldset">
+      <legend>Interesse</legend>
+      <div class="site-form__options">
+        {options.map((option) => (
+          <label class="site-form__checkbox">
+            <input name="interest[]" type="checkbox" value={option} />
+            <span>{option}</span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+
+    <label>
+      <span>Vraag, opmerking of gewenste periode *</span>
+      <textarea
+        name="message"
+        rows="6"
+        required
+        placeholder="Hier kunt u vragen, opmerkingen en een voorkeur voor een periode aangeven."
+      ></textarea>
+    </label>
+
+    <label class="site-form__checkbox">
+      <input name="privacy_accepted" type="checkbox" value="1" required />
+      <span>Ja, ik ga akkoord met de <a href="/privacyverklaring/">privacyverklaring</a>.</span>
+    </label>
+
+    <button class="button" type="submit">Verzenden</button>
+  </form>
+</div>

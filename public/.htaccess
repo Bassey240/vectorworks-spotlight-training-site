@@ -1,0 +1,14 @@
+RewriteEngine On
+
+# Force HTTPS and the apex domain
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\.vectorworks-spotlight-training\.nl$ [NC]
+RewriteRule ^(.*)$ https://vectorworks-spotlight-training.nl/$1 [R=301,L]
+
+# Preserve compatibility with common WordPress sitemap URLs
+RewriteRule ^sitemap_index\.xml$ /sitemap.xml [R=301,L]
+RewriteRule ^wp-sitemap\.xml$ /sitemap.xml [R=301,L]
+RewriteRule ^page-sitemap\.xml$ /sitemap.xml [R=301,L]
+RewriteRule ^post-sitemap\.xml$ /sitemap.xml [R=301,L]
+
+ErrorDocument 404 /404/index.html

@@ -1,0 +1,53 @@
+---
+interface Link {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  body?: string;
+  primaryCta?: Link;
+  secondaryCta?: Link;
+  meta?: Array<{ label: string; value: string }>;
+}
+
+const { eyebrow, title, body, primaryCta, secondaryCta, meta = [] } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="shell page-hero__inner">
+    <div class="page-hero__copy">
+      {eyebrow && <p class="page-hero__eyebrow">{eyebrow}</p>}
+      <h1>{title}</h1>
+      {body && <p class="page-hero__body">{body}</p>}
+
+      {(primaryCta || secondaryCta) && (
+        <div class="page-hero__actions">
+          {primaryCta && (
+            <a class="button" href={primaryCta.href}>
+              {primaryCta.label}
+            </a>
+          )}
+          {secondaryCta && (
+            <a class="button button--ghost" href={secondaryCta.href}>
+              {secondaryCta.label}
+            </a>
+          )}
+        </div>
+      )}
+    </div>
+
+    {meta.length > 0 && (
+      <dl class="page-hero__meta">
+        {meta.map((item) => (
+          <div>
+            <dt>{item.label}</dt>
+            <dd>{item.value}</dd>
+          </div>
+        ))}
+      </dl>
+    )}
+  </div>
+</section>
