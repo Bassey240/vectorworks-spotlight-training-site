@@ -2,6 +2,17 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/altcha-autoload.php';
+
+use AltchaOrg\Altcha\Algorithm\Pbkdf2;
+use AltchaOrg\Altcha\Altcha;
+use AltchaOrg\Altcha\Challenge;
+use AltchaOrg\Altcha\ChallengeParameters;
+use AltchaOrg\Altcha\CreateChallengeOptions;
+use AltchaOrg\Altcha\Payload;
+use AltchaOrg\Altcha\Solution;
+use AltchaOrg\Altcha\VerifySolutionOptions;
+
 function altcha_enabled(array $config): bool
 {
     return (bool) ($config['altcha']['enabled'] ?? false);
@@ -23,39 +34,23 @@ function altcha_signature_secret(array $config): string
     return trim(altcha_config_string($config, 'hmac_signature_secret'));
 }
 
-function altcha_canonical_json(array $data): string
+function altcha_key_signature_secret(array $config): ?string
 {
-    ksort($data);
-    altcha_sort_recursive($data);
-
-    return json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) ?: '';
+    $value = trim(altcha_config_string($config, 'hmac_key_signature_secret'));
+    return $value !== '' ? $value : null;
 }
 
-function altcha_sort_recursive(array &$data): void
+function altcha_instance(array $config): Altcha
 {
-    foreach ($data as &$value) {
-        if (is_array($value) && !array_is_list($value)) {
-            ksort($value);
-            altcha_sort_recursive($value);
-        }
-    }
+    return new Altcha(
+        hmacSignatureSecret: altcha_signature_secret($config),
+        hmacKeySignatureSecret: altcha_key_signature_secret($config),
+    );
 }
 
-function altcha_hmac_hex(string $data, string $key): string
+function altcha_algorithm(): Pbkdf2
 {
-    return bin2hex(hash_hmac('sha256', $data, $key, true));
-}
-
-function altcha_key_prefix(array $config): string
-{
-    $prefix = preg_replace('/[^0-9a-f]/i', '', altcha_config_string($config, 'key_prefix', '00')) ?? '00';
-    $prefix = strtolower($prefix);
-
-    if ($prefix === '' || (strlen($prefix) % 2) !== 0) {
-        return '00';
-    }
-
-    return $prefix;
+    return new Pbkdf2();
 }
 
 function altcha_create_challenge_response(string $formName, array $config): array
@@ -65,26 +60,19 @@ function altcha_create_challenge_response(string $formName, array $config): arra
         throw new RuntimeException('ALTCHA signature secret is not configured.');
     }
 
-    $parameters = [
-        'algorithm' => 'PBKDF2/SHA-256',
-        'cost' => max(100, altcha_config_int($config, 'pbkdf2_cost', 1000)),
-        'data' => [
-            'form' => $formName,
-        ],
-        'expiresAt' => time() + max(60, altcha_config_int($config, 'challenge_expires_seconds', 600)),
-        'keyLength' => max(16, min(64, altcha_config_int($config, 'key_length', 32))),
-        'keyPrefix' => altcha_key_prefix($config),
-        'nonce' => bin2hex(random_bytes(16)),
-        'salt' => bin2hex(random_bytes(16)),
-    ];
+    $challenge = altcha_instance($config)->createChallenge(new CreateChallengeOptions(
+        algorithm: altcha_algorithm(),
+        cost: max(1000, altcha_config_int($config, 'pbkdf2_cost', 5000)),
+        keyLength: max(16, min(64, altcha_config_int($config, 'key_length', 32))),
+        keyPrefix: strtolower(altcha_config_string($config, 'key_prefix', '00')) ?: '00',
+        expiresAt: time() + max(60, altcha_config_int($config, 'challenge_expires_seconds', 600)),
+        data: ['form' => $formName],
+    ));
 
-    return [
-        'parameters' => $parameters,
-        'signature' => altcha_hmac_hex(altcha_canonical_json($parameters), $secret),
-    ];
+    return $challenge->toArray();
 }
 
-function altcha_decode_payload(string $payload): ?array
+function altcha_decode_payload_data(string $payload): ?array
 {
     if ($payload === '') {
         return null;
@@ -215,34 +203,39 @@ function altcha_register_nonce_use_file(string $logsDir, string $nonceHash, int 
     }
 }
 
-function altcha_derive_pbkdf2_hex(array $parameters, int $counter): ?string
+function altcha_payload_from_array(array $payload): ?Payload
 {
-    $nonce = isset($parameters['nonce']) && is_string($parameters['nonce']) ? $parameters['nonce'] : '';
-    $salt = isset($parameters['salt']) && is_string($parameters['salt']) ? $parameters['salt'] : '';
+    $challengeData = $payload['challenge'] ?? null;
+    $solutionData = $payload['solution'] ?? null;
 
-    if ($nonce === '' || $salt === '' || $counter < 0 || $counter > 4294967295) {
+    if (!is_array($challengeData) || !is_array($solutionData)) {
         return null;
     }
 
-    $nonceBytes = hex2bin($nonce);
-    $saltBytes = hex2bin($salt);
-    if ($nonceBytes === false || $saltBytes === false) {
+    $parametersData = $challengeData['parameters'] ?? null;
+    $signature = $challengeData['signature'] ?? null;
+    $counter = $solutionData['counter'] ?? null;
+    $derivedKey = $solutionData['derivedKey'] ?? null;
+
+    if (!is_array($parametersData) || ($signature !== null && !is_string($signature))) {
         return null;
     }
 
-    $cost = isset($parameters['cost']) && is_int($parameters['cost']) ? max(1, $parameters['cost']) : 1000;
-    $keyLength = isset($parameters['keyLength']) && is_int($parameters['keyLength']) ? max(16, min(64, $parameters['keyLength'])) : 32;
+    if (!is_int($counter) || !is_string($derivedKey) || $derivedKey === '') {
+        return null;
+    }
 
-    $derivedKey = hash_pbkdf2(
-        'sha256',
-        $nonceBytes . pack('N', $counter),
-        $saltBytes,
-        $cost,
-        $keyLength,
-        true
+    $challenge = new Challenge(
+        ChallengeParameters::fromArray($parametersData),
+        $signature
     );
 
-    return bin2hex($derivedKey);
+    $solution = new Solution(
+        counter: $counter,
+        derivedKey: $derivedKey
+    );
+
+    return new Payload($challenge, $solution);
 }
 
 function altcha_verify_payload(string $payloadString, array $config, array $paths, string $expectedForm): array
@@ -256,59 +249,48 @@ function altcha_verify_payload(string $payloadString, array $config, array $path
         return ['verified' => false, 'error' => 'missing_signature_secret'];
     }
 
-    $payload = altcha_decode_payload($payloadString);
-    if (!is_array($payload)) {
+    $payloadData = altcha_decode_payload_data($payloadString);
+    if (!is_array($payloadData)) {
         return ['verified' => false, 'error' => 'invalid_payload'];
     }
 
-    $challenge = $payload['challenge'] ?? null;
-    $solution = $payload['solution'] ?? null;
-    if (!is_array($challenge) || !is_array($solution)) {
+    $payload = altcha_payload_from_array($payloadData);
+    if (!$payload instanceof Payload) {
         return ['verified' => false, 'error' => 'invalid_structure'];
     }
 
-    $parameters = $challenge['parameters'] ?? null;
-    $signature = $challenge['signature'] ?? null;
-    if (!is_array($parameters) || !is_string($signature) || $signature === '') {
-        return ['verified' => false, 'error' => 'invalid_challenge'];
-    }
-
-    if (($parameters['algorithm'] ?? null) !== 'PBKDF2/SHA-256') {
+    if ($payload->challenge->parameters->algorithm !== 'PBKDF2/SHA-256') {
         return ['verified' => false, 'error' => 'unexpected_algorithm'];
     }
 
-    $expectedSignature = altcha_hmac_hex(altcha_canonical_json($parameters), $secret);
-    if (!hash_equals($expectedSignature, $signature)) {
-        return ['verified' => false, 'error' => 'invalid_signature'];
-    }
-
-    $expiresAt = isset($parameters['expiresAt']) && is_int($parameters['expiresAt']) ? $parameters['expiresAt'] : 0;
-    if ($expiresAt <= time()) {
-        return ['verified' => false, 'error' => 'expired'];
-    }
-
-    $formName = $parameters['data']['form'] ?? null;
+    $formName = $payload->challenge->parameters->data['form'] ?? null;
     if (!is_string($formName) || $formName !== $expectedForm) {
         return ['verified' => false, 'error' => 'form_mismatch'];
     }
 
-    $counter = $solution['counter'] ?? null;
-    $derivedKey = $solution['derivedKey'] ?? null;
-    if (!is_int($counter) || !is_string($derivedKey) || !preg_match('/^[0-9a-f]+$/i', $derivedKey)) {
-        return ['verified' => false, 'error' => 'invalid_solution'];
+    $result = altcha_instance($config)->verifySolution(new VerifySolutionOptions(
+        payload: $payload,
+        algorithm: altcha_algorithm(),
+    ));
+
+    if (!$result->verified) {
+        if ($result->expired) {
+            return ['verified' => false, 'error' => 'expired'];
+        }
+
+        if ($result->invalidSignature) {
+            return ['verified' => false, 'error' => 'invalid_signature'];
+        }
+
+        if ($result->invalidSolution) {
+            return ['verified' => false, 'error' => 'invalid_solution'];
+        }
+
+        return ['verified' => false, 'error' => 'verification_failed'];
     }
 
-    $expectedDerivedKey = altcha_derive_pbkdf2_hex($parameters, $counter);
-    if (!is_string($expectedDerivedKey) || !hash_equals($expectedDerivedKey, strtolower($derivedKey))) {
-        return ['verified' => false, 'error' => 'invalid_solution'];
-    }
-
-    $keyPrefix = isset($parameters['keyPrefix']) && is_string($parameters['keyPrefix']) ? strtolower($parameters['keyPrefix']) : '';
-    if ($keyPrefix === '' || !str_starts_with($expectedDerivedKey, $keyPrefix)) {
-        return ['verified' => false, 'error' => 'invalid_prefix'];
-    }
-
-    $nonce = isset($parameters['nonce']) && is_string($parameters['nonce']) ? $parameters['nonce'] : '';
+    $expiresAt = $payload->challenge->parameters->expiresAt ?? 0;
+    $nonce = $payload->challenge->parameters->nonce;
     if ($nonce === '') {
         return ['verified' => false, 'error' => 'missing_nonce'];
     }

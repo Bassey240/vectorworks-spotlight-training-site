@@ -20,8 +20,9 @@ return [
     'altcha' => [
         'enabled' => true,
         'hmac_signature_secret' => 'replace-with-a-long-random-secret',
+        'hmac_key_signature_secret' => '',
         'challenge_expires_seconds' => 600,
-        'pbkdf2_cost' => 1000,
+        'pbkdf2_cost' => 5000,
         'key_length' => 32,
         'key_prefix' => '00',
     ],
