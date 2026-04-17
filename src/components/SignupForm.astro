@@ -13,7 +13,8 @@ import FormStatus from "@/components/FormStatus.astro";
 
 <div class="form-shell">
   <FormStatus />
-  <form class="site-form" action="/api/aanmelden.php" method="post" novalidate>
+  <p class="form-status form-status--error" data-form-runtime-message hidden aria-live="polite"></p>
+  <form class="site-form" action="/api/aanmelden.php" method="post">
     <input type="hidden" name="form_started_at" value="" data-js-timestamp />
     <input type="hidden" name="company_site" value="" />
 
@@ -89,7 +90,9 @@ import FormStatus from "@/components/FormStatus.astro";
         challenge="/api/altcha-challenge.php?form=signup"
         auto="onsubmit"
         display="standard"
+        theme="business"
         name="altcha"
+        type="checkbox"
       ></altcha-widget>
       <p class="site-form__altcha-note">Spambeveiliging zonder tracking of cookies.</p>
     </div>

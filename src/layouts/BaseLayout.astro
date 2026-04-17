@@ -34,6 +34,7 @@ const plausibleDataDomain =
   plausibleScriptUrl && plausibleConfig?.dataDomain
     ? plausibleConfig.dataDomain
     : new URL(site.url).hostname;
+const includeHomeCarousel = pathname === "/";
 ---
 
 <!doctype html>
@@ -84,9 +85,15 @@ const plausibleDataDomain =
     )}
     <script>
       import "@/scripts/altcha";
+      import "@/scripts/form-feedback";
       import "@/scripts/form-timestamp";
       import "@/scripts/news-archive-filter";
       import "@/scripts/video-consent";
     </script>
+    {includeHomeCarousel && (
+      <script>
+        import "@/scripts/home-carousel";
+      </script>
+    )}
   </body>
 </html>

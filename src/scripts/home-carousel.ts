@@ -59,5 +59,6 @@
   wrap.addEventListener("focusin", () => timer && clearInterval(timer));
   wrap.addEventListener("focusout", startTimer);
 
+  goTo(0);
   startTimer();
 })();
