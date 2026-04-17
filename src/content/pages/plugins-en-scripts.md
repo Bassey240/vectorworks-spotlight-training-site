@@ -22,9 +22,30 @@ Werk je in Vectorworks veel met terugkerende handelingen of specifieke workflows
 
 Voor een groeiend aanbod van Vectorworks plugins, tools en downloads verwijs ik je naar:
 
-[stb-vw.com](https://stb-vw.com)
-
-Daar vind je mijn eigen tools voor Vectorworks op een aparte plek.
+<div class="external-preview-card">
+  <div class="external-preview-card__grid">
+    <a class="external-preview-card__item" href="https://stb-vw.com" rel="noreferrer" target="_blank">
+      <div class="external-preview-card__media">
+        <img src="/assets/external-previews/stb-vw-home.png" alt="Preview van stb-vw.com" loading="lazy" />
+      </div>
+      <div class="external-preview-card__meta">
+        <p class="external-preview-card__domain">stb-vw.com</p>
+        <h3>Home - STB-VW Tools</h3>
+        <p>Bekijk mijn kant-en-klare Vectorworks plugins, tools en downloads.</p>
+      </div>
+    </a>
+    <a class="external-preview-card__item" href="https://stb-vw.com/vectorworks_plugins/symbol-line-vectorworks-plugin" rel="noreferrer" target="_blank">
+      <div class="external-preview-card__media">
+        <img src="/assets/external-previews/stb-vw-symbol-line.png" alt="Preview van de Symbol Line pluginpagina op stb-vw.com" loading="lazy" />
+      </div>
+      <div class="external-preview-card__meta">
+        <p class="external-preview-card__domain">stb-vw.com</p>
+        <h3>Symbol Line Tool for Vectorworks</h3>
+        <p>Directe link naar de plugin voor het plaatsen van gekoppelde symbolen langs een lijn.</p>
+      </div>
+    </a>
+  </div>
+</div>
 
 ## Custom plugins en scripts
 

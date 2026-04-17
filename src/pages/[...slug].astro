@@ -145,7 +145,7 @@ if (isPage) {
 }
 
 const postDateDutch = isPost ? formatDutchDate(entry.data.date) : "";
-const showH1 = !isFormPage;
+const showH1 = true; // all pages get the dark gradient page-header
 const totalComments = isPost && entry.data.comments
   ? entry.data.comments.reduce((acc, c) => acc + 1 + (c.reply ? 1 : 0), 0)
   : 0;
@@ -236,22 +236,24 @@ const totalComments = isPost && entry.data.comments
 
       {
         isContactPage ? (
-          <div class="content-layout">
-            <div class="content-main">
-              <h2 class="contact-form__heading">NEEM CONTACT OP</h2>
-              <ContactForm />
-            </div>
-            <aside class="content-sidebar">
-              <div class="sidebar-card">
-                <h2 class="sidebar-card__title">CONTACT</h2>
-                {hasBody && (
-                  <div class={proseClass}>
-                    <Content />
-                  </div>
-                )}
+          <>
+            <h2 class="contact-form__heading">NEEM CONTACT OP</h2>
+            <div class="content-layout content-layout--flush">
+              <div class="content-main">
+                <ContactForm />
               </div>
-            </aside>
-          </div>
+              <aside class="content-sidebar">
+                <div class="sidebar-card">
+                  <h2 class="sidebar-card__title">CONTACT</h2>
+                  {hasBody && (
+                    <div class={proseClass}>
+                      <Content />
+                    </div>
+                  )}
+                </div>
+              </aside>
+            </div>
+          </>
         ) : null
       }
 
@@ -341,7 +343,7 @@ const totalComments = isPost && entry.data.comments
       {
         !isOverviewPage && !isFaqPage && !isContactPage && !isSignupPage && !isArchivePage ? (
           hasSidebar ? (
-            <div class="content-layout">
+            <div class="content-layout content-layout--has-sidebar">
               <div class="content-main">
                 {hasBody && (
                   <div class={proseClass}>
