@@ -26,6 +26,15 @@ const {
 
 const canonical = toAbsoluteUrl(pathname);
 const imageUrl = image.startsWith("http") ? image : toAbsoluteUrl(image);
+const plausibleConfig = site.analytics.provider === "plausible" ? site.analytics.plausible : null;
+const plausibleScriptUrl =
+  site.analytics.enabled && plausibleConfig?.scriptUrl ? plausibleConfig.scriptUrl : null;
+const plausibleApiEndpoint =
+  plausibleScriptUrl && plausibleConfig?.apiEndpoint ? plausibleConfig.apiEndpoint : null;
+const plausibleDataDomain =
+  plausibleScriptUrl && plausibleConfig?.dataDomain
+    ? plausibleConfig.dataDomain
+    : new URL(site.url).hostname;
 ---
 
 <!doctype html>
@@ -66,6 +75,14 @@ const imageUrl = image.startsWith("http") ? image : toAbsoluteUrl(image);
     </main>
     {showSocials && <SocialsBlock />}
     <Footer />
+    {plausibleScriptUrl && (
+      <script
+        defer
+        data-domain={plausibleDataDomain}
+        data-api={plausibleApiEndpoint || undefined}
+        src={plausibleScriptUrl}
+      />
+    )}
     <script type="module" src={altchaClientUrl}></script>
     <script>
       document.querySelectorAll("[data-js-timestamp]").forEach((field) => {

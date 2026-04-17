@@ -48,7 +48,16 @@ export const site = {
     { label: "Privacyverklaring", href: "/privacyverklaring/" },
     { label: "Algemene voorwaarden", href: "/algemene-voorwaarden/" },
     { label: "Cookiebeleid", href: "/cookiebeleid-eu/" }
-  ]
+  ],
+  analytics: {
+    provider: "plausible",
+    enabled: false,
+    plausible: {
+      scriptUrl: "",
+      dataDomain: "vectorworks-spotlight-training.nl",
+      apiEndpoint: ""
+    }
+  }
 } as const;
 
 export function toAbsoluteUrl(pathname: string) {
