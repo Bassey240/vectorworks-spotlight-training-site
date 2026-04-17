@@ -255,6 +255,12 @@ function mail_config_string(array $config, string $key, string $default = ''): s
     return is_string($value) ? $value : $default;
 }
 
+function mail_transport(array $config): string
+{
+    $transport = string_lower(trim((string) ($config['mail']['transport'] ?? 'smtp')));
+    return in_array($transport, ['smtp', 'sendmail'], true) ? $transport : 'smtp';
+}
+
 function sqlite_available(): bool
 {
     return class_exists('PDO') && in_array('sqlite', PDO::getAvailableDrivers(), true);
@@ -847,6 +853,51 @@ function smtp_send_command($socket, string $command, array $codes): string
     return smtp_expect($socket, $codes);
 }
 
+function mail_headers(
+    array $config,
+    string $replyToEmail,
+    string $replyToName,
+    string $subject
+): array {
+    $replyToEmail = sanitize_header_text($replyToEmail, 254);
+    $replyToName = sanitize_header_text($replyToName, 120);
+    $subject = sanitize_header_text($subject, 180);
+    $fromEmail = sanitize_header_text((string) $config['mail']['from_email'], 254);
+    $fromName = sanitize_header_text((string) $config['mail']['from_name'], 120);
+
+    return [
+        'Date: ' . date(DATE_RFC2822),
+        'From: ' . $fromName . ' <' . $fromEmail . '>',
+        'Reply-To: ' . $replyToName . ' <' . $replyToEmail . '>',
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'Content-Transfer-Encoding: 8bit',
+        'Subject: ' . $subject,
+    ];
+}
+
+function sendmail_send_mail(array $config, string $replyToEmail, string $replyToName, string $subject, string $body): void
+{
+    $toEmail = sanitize_header_text((string) $config['mail']['to_email'], 254);
+    $fromEmail = sanitize_header_text((string) $config['mail']['from_email'], 254);
+    $subject = sanitize_header_text($subject, 180);
+
+    $headers = mail_headers($config, $replyToEmail, $replyToName, $subject);
+    $headers = array_filter($headers, static fn (string $header): bool => !str_starts_with($header, 'Subject: '));
+
+    $success = mail(
+        $toEmail,
+        $subject,
+        $body,
+        implode("\r\n", $headers),
+        '-f ' . $fromEmail
+    );
+
+    if ($success !== true) {
+        throw new RuntimeException('sendmail delivery failed.');
+    }
+}
+
 function smtp_send_mail(array $config, string $replyToEmail, string $replyToName, string $subject, string $body): void
 {
     $host = (string) $config['smtp']['host'];
@@ -879,23 +930,14 @@ function smtp_send_mail(array $config, string $replyToEmail, string $replyToName
     smtp_send_command($socket, base64_encode((string) $config['smtp']['username']), [334]);
     smtp_send_command($socket, base64_encode((string) $config['smtp']['password']), [235]);
 
-    $fromEmail = sanitize_header_text((string) $config['mail']['from_email'], 254);
     $toEmail = sanitize_header_text((string) $config['mail']['to_email'], 254);
-    $fromName = sanitize_header_text((string) $config['mail']['from_name'], 120);
+    $fromEmail = sanitize_header_text((string) $config['mail']['from_email'], 254);
 
     smtp_send_command($socket, 'MAIL FROM:<' . $fromEmail . '>', [250]);
     smtp_send_command($socket, 'RCPT TO:<' . $toEmail . '>', [250, 251]);
     smtp_send_command($socket, 'DATA', [354]);
 
-    $headers = [
-        'Date: ' . date(DATE_RFC2822),
-        'From: ' . $fromName . ' <' . $fromEmail . '>',
-        'Reply-To: ' . $replyToName . ' <' . $replyToEmail . '>',
-        'MIME-Version: 1.0',
-        'Content-Type: text/plain; charset=UTF-8',
-        'Content-Transfer-Encoding: 8bit',
-        'Subject: ' . $subject,
-    ];
+    $headers = mail_headers($config, $replyToEmail, $replyToName, $subject);
 
     $message = implode("\r\n", $headers) . "\r\n\r\n" . str_replace("\n", "\r\n", $body);
     $message = preg_replace("/^\./m", '..', $message);
@@ -905,4 +947,14 @@ function smtp_send_mail(array $config, string $replyToEmail, string $replyToName
     smtp_send_command($socket, 'QUIT', [221]);
 
     fclose($socket);
+}
+
+function send_mail(array $config, string $replyToEmail, string $replyToName, string $subject, string $body): void
+{
+    if (mail_transport($config) === 'sendmail') {
+        sendmail_send_mail($config, $replyToEmail, $replyToName, $subject, $body);
+        return;
+    }
+
+    smtp_send_mail($config, $replyToEmail, $replyToName, $subject, $body);
 }
