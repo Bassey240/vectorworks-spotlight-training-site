@@ -321,7 +321,7 @@ const totalComments = isPost && entry.data.comments
                     >
                       {thumb && (
                         <a href={`/${post.slug}/`} class="post-teaser__thumb">
-                          <img src={thumb} alt={post.data.title} />
+                          <img src={thumb} alt={post.data.title} loading="lazy" decoding="async" />
                         </a>
                       )}
                       <h2><a href={`/${post.slug}/`}>{post.data.title}</a></h2>
@@ -458,7 +458,7 @@ const totalComments = isPost && entry.data.comments
             <>
               {isPost && entry.data.thumbnail && !postBodyContainsThumbnail && (
                 <figure class="post-hero-image">
-                  <img src={entry.data.thumbnail} alt={entry.data.title} />
+                  <img src={entry.data.thumbnail} alt={entry.data.title} decoding="async" />
                 </figure>
               )}
 
@@ -513,7 +513,7 @@ const totalComments = isPost && entry.data.comments
               <div class="video-consent-card">
                 {entry.data.thumbnail && (
                   <div class="video-consent-card__thumb">
-                    <img src={entry.data.thumbnail} alt={entry.data.title} />
+                    <img src={entry.data.thumbnail} alt={entry.data.title} loading="lazy" decoding="async" />
                   </div>
                 )}
                 <div class="video-consent-card__body">
