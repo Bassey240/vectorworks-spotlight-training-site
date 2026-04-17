@@ -6,6 +6,11 @@ export default defineConfig({
   output: "static",
   trailingSlash: "always",
   integrations: [sitemap()],
+  vite: {
+    build: {
+      assetsInlineLimit: 0
+    }
+  },
   markdown: {
     shikiConfig: {
       theme: "github-dark"
