@@ -387,6 +387,19 @@ main { min-height: 60vh; }
 
 .prose a { color: var(--blue); text-decoration: underline; }
 .prose a:hover { color: var(--blue-hover); }
+.prose a.button,
+.prose a.button:hover,
+.prose a.button:focus {
+  color: #fff;
+  text-decoration: none;
+}
+.prose a.button--ghost {
+  color: var(--blue);
+}
+.prose a.button--ghost:hover,
+.prose a.button--ghost:focus {
+  color: #fff;
+}
 
 .prose h2,
 .prose h3,

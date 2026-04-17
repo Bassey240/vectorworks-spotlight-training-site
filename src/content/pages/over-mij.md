@@ -8,7 +8,7 @@ STB Services staat voor Sebastiaan ten Broek. Sinds 2000 werk ik in de evenement
 
 ## Hoe de trainingen zijn ontstaan
 
-In de praktijk kreeg ik steeds vaker de vraag van collega’s of ik hen op weg wilde helpen met Vectorworks Spotlight. Daar zijn de trainingen uit ontstaan. Niet vanuit theorie, maar vanuit het dagelijkse werk met de software.
+In de praktijk kreeg ik steeds vaker de vraag van collega’s of ik hen op weg wilde helpen met Vectorworks Spotlight. Omdat ik het leuk vond om anderen daar meer over te vertellen, zijn de trainingen daar uiteindelijk uit ontstaan.
 
 Wat ik belangrijk vind, is dat een training niet alleen duidelijk is, maar ook direct bruikbaar. Je moet na afloop niet alleen weten waar een functie zit, maar vooral hoe je die inzet in een echt project.
 
