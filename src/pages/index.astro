@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { breadcrumbSchema, organizationSchema, personSchema } from "@/lib/schema";
-import homeCarouselClientUrl from "@/scripts/home-carousel.ts?url";
 const schema = [
   organizationSchema(),
   personSchema(),
@@ -121,4 +120,6 @@ const schema = [
 
 </BaseLayout>
 
-<script type="module" src={homeCarouselClientUrl}></script>
+<script>
+  import "@/scripts/home-carousel";
+</script>

@@ -5,8 +5,6 @@ kind: "form"
 formType: "contact"
 ---
 
-## CONTACT
-
 STB Services  
 Parallelweg 30  
 5223 AL  
