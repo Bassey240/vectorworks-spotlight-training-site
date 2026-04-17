@@ -15,6 +15,10 @@ RewriteRule ^wp-sitemap\.xml$ /sitemap.xml [R=301,L]
 RewriteRule ^page-sitemap\.xml$ /sitemap.xml [R=301,L]
 RewriteRule ^post-sitemap\.xml$ /sitemap.xml [R=301,L]
 
+<IfModule mod_mime.c>
+  AddType text/javascript .ts
+</IfModule>
+
 <IfModule mod_headers.c>
   Header always unset X-Powered-By
   Header always set X-Content-Type-Options "nosniff"
