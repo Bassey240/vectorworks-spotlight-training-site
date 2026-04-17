@@ -5,6 +5,9 @@ import SocialsBlock from "@/components/SocialsBlock.astro";
 import { site, toAbsoluteUrl } from "@/lib/site";
 import "@/styles/global.css";
 import altchaClientUrl from "@/scripts/altcha.ts?url";
+import formTimestampClientUrl from "@/scripts/form-timestamp.ts?url";
+import newsArchiveFilterClientUrl from "@/scripts/news-archive-filter.ts?url";
+import videoConsentClientUrl from "@/scripts/video-consent.ts?url";
 
 interface Props {
   title: string;
@@ -84,12 +87,8 @@ const plausibleDataDomain =
       />
     )}
     <script type="module" src={altchaClientUrl}></script>
-    <script>
-      document.querySelectorAll("[data-js-timestamp]").forEach((field) => {
-        if (field instanceof HTMLInputElement) {
-          field.value = String(Math.floor(Date.now() / 1000));
-        }
-      });
-    </script>
+    <script type="module" src={formTimestampClientUrl}></script>
+    <script type="module" src={newsArchiveFilterClientUrl}></script>
+    <script type="module" src={videoConsentClientUrl}></script>
   </body>
 </html>

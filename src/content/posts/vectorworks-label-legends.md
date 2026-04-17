@@ -9,7 +9,7 @@ thumbnail: "/wp-content/uploads/2020/05/Vectorworks-Spotlight-move-Label-Legends
 video:
   label: "Youtube"
   href: "https://www.youtube.com/watch?v=GOUSrjk42fg"
-  embed: "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/GOUSrjk42fg\" title=\"Vectorworks Label Legends\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen></iframe>"
+  embed: "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube-nocookie.com/embed/GOUSrjk42fg\" title=\"Vectorworks Label Legends\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" loading=\"lazy\" allowfullscreen></iframe>"
 comments:
   - author: "Rutger van Dijk"
     authorHref: "http://www.semmika.nl"

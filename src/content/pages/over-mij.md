@@ -22,6 +22,7 @@ Wil je voorbeelden zien van projecten waar ik aan heb gewerkt? Ik stuur je op ve
 
 Neem gerust [contact](/contact/) op als je wilt weten wat ik voor je kan betekenen.
 
-<p class="over-mij-portrait"><a href="/contact/"><img src="/wp-content/uploads/2021/07/Vectorworks-Trainer-Sebastiaan-ten-Broek-227x300.jpg" alt="Foto van Sebastiaan ten Broek" width="227" height="300" /></a></p>
-
-#### Sebastiaan ten Broek
+<div class="over-mij-profile-card">
+  <p class="over-mij-portrait"><a href="/contact/"><img src="/wp-content/uploads/2021/07/Vectorworks-Trainer-Sebastiaan-ten-Broek-227x300.jpg" alt="Foto van Sebastiaan ten Broek" width="227" height="300" /></a></p>
+  <p class="over-mij-profile-name">Sebastiaan ten Broek</p>
+</div>

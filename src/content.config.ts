@@ -67,6 +67,13 @@ const heroSchema = z.object({
   secondaryCta: linkSchema.optional()
 });
 
+const documentSchema = z.object({
+  intro: z.string().optional(),
+  pdfHref: z.string(),
+  downloadLabel: z.string().optional(),
+  frameTitle: z.string().optional()
+});
+
 const pages = defineCollection({
   type: "content",
   schema: z.object({
@@ -99,7 +106,8 @@ const pages = defineCollection({
     ogImage: z.string().optional(),
     published: z.string().optional(),
     updated: z.string().optional(),
-    socialLinks: z.array(linkSchema).optional()
+    socialLinks: z.array(linkSchema).optional(),
+    document: documentSchema.optional()
   })
 });
 

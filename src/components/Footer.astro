@@ -4,6 +4,13 @@ import { site } from "@/lib/site";
 
 <footer class="site-footer">
   <div class="shell site-footer__inner">
+    <nav class="site-footer__legal" aria-label="Juridische pagina's">
+      <ul>
+        {site.legal.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
     <p>Copyright &copy; 2026 {site.company}</p>
   </div>
 </footer>

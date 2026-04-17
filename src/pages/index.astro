@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { breadcrumbSchema, organizationSchema, personSchema } from "@/lib/schema";
+import homeCarouselClientUrl from "@/scripts/home-carousel.ts?url";
 const schema = [
   organizationSchema(),
   personSchema(),
@@ -20,7 +21,7 @@ const schema = [
     <div class="shell">
       <span class="home-hero__tag">Vectorworks Spotlight Specialist</span>
       <h1 class="home-hero__title">
-        De Expert voor de <em>Evenementen&shy;branche</em>
+        De Expert voor de <br /><em>Evenementenbranche</em>
       </h1>
       <p class="home-hero__lead">
         Al sinds 2000 actief in de evenementenbranche.
@@ -29,20 +30,6 @@ const schema = [
       <div class="home-hero__btns">
         <a class="button" href="/trainingen/">Bekijk het aanbod</a>
         <a class="button button--outline-white" href="/aanmelden/">Meld je direct aan</a>
-      </div>
-      <div class="home-hero__certs">
-        <img
-          src="/wp-content/uploads/2024/11/ConnectCAD_2024_Professional_Certification_15_Nov_2024_4319a26d.png"
-          alt="ConnectCAD Professional Certification"
-          width="64"
-          height="64"
-        />
-        <img
-          src="/wp-content/uploads/2024/11/Vectorworks_Core_Certification_19_July_2021_fb9a91c9.png"
-          alt="Vectorworks Core Certification"
-          width="64"
-          height="64"
-        />
       </div>
     </div>
   </section>
@@ -122,43 +109,4 @@ const schema = [
 
 </BaseLayout>
 
-<script>
-  (() => {
-    const track = document.getElementById("carousel-track") as HTMLElement;
-    const slides = document.querySelectorAll<HTMLElement>(".carousel__slide");
-    const dots   = document.querySelectorAll<HTMLButtonElement>(".carousel__dot");
-    const prev   = document.getElementById("carousel-prev") as HTMLButtonElement;
-    const next   = document.getElementById("carousel-next") as HTMLButtonElement;
-    const wrap   = document.getElementById("render-carousel") as HTMLElement;
-
-    if (!track || !slides.length) return;
-
-    let current = 0;
-    let timer: ReturnType<typeof setInterval>;
-
-    function goTo(index: number) {
-      dots[current].classList.remove("carousel__dot--active");
-      slides[current].setAttribute("aria-hidden", "true");
-      current = ((index % slides.length) + slides.length) % slides.length;
-      track.style.transform = `translateX(-${current * 100}%)`;
-      dots[current].classList.add("carousel__dot--active");
-      slides[current].removeAttribute("aria-hidden");
-    }
-
-    function startTimer() {
-      clearInterval(timer);
-      timer = setInterval(() => goTo(current + 1), 4000);
-    }
-
-    prev.addEventListener("click", () => { goTo(current - 1); startTimer(); });
-    next.addEventListener("click", () => { goTo(current + 1); startTimer(); });
-    dots.forEach((dot, i) => dot.addEventListener("click", () => { goTo(i); startTimer(); }));
-
-    wrap.addEventListener("mouseenter", () => clearInterval(timer));
-    wrap.addEventListener("mouseleave", startTimer);
-    wrap.addEventListener("focusin",    () => clearInterval(timer));
-    wrap.addEventListener("focusout",   startTimer);
-
-    startTimer();
-  })();
-</script>
+<script type="module" src={homeCarouselClientUrl}></script>

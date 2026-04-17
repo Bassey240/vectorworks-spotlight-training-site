@@ -4,6 +4,11 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 import ContactForm from "@/components/ContactForm.astro";
 import SignupForm from "@/components/SignupForm.astro";
 import {
+  faqHtmlToSchemaText,
+  getVideoEmbedSrc,
+  sanitizeFaqHtml
+} from "@/lib/content-sanitize";
+import {
   articleSchema,
   breadcrumbSchema,
   courseSchema,
@@ -66,7 +71,7 @@ function buildArchiveSidebar(posts: typeof allPosts) {
     if (!archiveMap.has(key)) {
       archiveMap.set(key, {
         label: `${DUTCH_MONTHS[month - 1]} ${year}`,
-        href: `/${yearStr}/${monthStr}/`
+        href: `/nieuws/?archief=${key}`
       });
     }
   }
@@ -90,10 +95,22 @@ const isOverviewPage = isPage && entry.data.kind === "overview" && entry.data.ca
 const isArchivePage = isPage && entry.data.kind === "archive";
 const isContactPage = isPage && entry.data.kind === "form" && entry.data.formType === "contact";
 const isSignupPage = isPage && entry.data.kind === "form" && entry.data.formType === "signup";
+const isLegalDocumentPage = isPage && entry.data.kind === "legal" && entry.data.document;
 const isFormPage = isContactPage || isSignupPage;
 const hasSidebar = isPage && entry.data.sidebar;
 const proseClass = pathname === "/over-mij/" ? "prose prose--centered" : "prose";
 const archiveSidebar = isArchivePage ? buildArchiveSidebar(sortedPosts) : null;
+const sanitizedFaqIntro = isFaqPage ? sanitizeFaqHtml(entry.data.faqIntro) : "";
+const sanitizedFaqItems = isFaqPage
+  ? entry.data.faqItems.map((item) => ({
+      question: item.question,
+      answerHtml: sanitizeFaqHtml(item.answer),
+      answerText: faqHtmlToSchemaText(item.answer)
+    }))
+  : [];
+const videoEmbedSrc = isPost ? getVideoEmbedSrc(entry.data.video?.embed) : "";
+const postBodyContainsThumbnail =
+  isPost && !!entry.data.thumbnail ? (entry.body ?? "").includes(entry.data.thumbnail) : false;
 
 const schema = [organizationSchema(), personSchema()];
 
@@ -126,7 +143,14 @@ if (isPage) {
   }
 
   if (entry.data.kind === "faq" && entry.data.faqItems) {
-    schema.push(faqSchema(entry.data.faqItems));
+    schema.push(
+      faqSchema(
+        sanitizedFaqItems.map((item) => ({
+          question: item.question,
+          answer: item.answerText
+        }))
+      )
+    );
   }
 } else {
   schema.push(
@@ -219,16 +243,18 @@ const totalComments = isPost && entry.data.comments
       {
         isFaqPage ? (
           <>
-            {entry.data.faqIntro && (
-              <div class="prose faq-intro" set:html={entry.data.faqIntro} />
+            {sanitizedFaqIntro && (
+              <div class="prose faq-intro" set:html={sanitizedFaqIntro} />
             )}
-            <div class="faq-stack">
-              {entry.data.faqItems.map((item) => (
+            <div class="faq-card">
+              <div class="faq-stack">
+                {sanitizedFaqItems.map((item) => (
                 <details class="faq-item">
                   <summary class="faq-item__question">{item.question}</summary>
-                  <div class="prose faq-item__answer" set:html={item.answer} />
+                  <div class="prose faq-item__answer" set:html={item.answerHtml} />
                 </details>
-              ))}
+                ))}
+              </div>
             </div>
           </>
         ) : null
@@ -273,13 +299,26 @@ const totalComments = isPost && entry.data.comments
 
       {
         isArchivePage ? (
-          <div class="content-layout">
+          <div class="content-layout" data-news-archive>
             <div class="content-main">
+              <div class="archive-toolbar" data-archive-toolbar hidden>
+                <p class="archive-toolbar__status" data-archive-results></p>
+                <a class="button button--ghost archive-toolbar__clear" href="/nieuws/" data-archive-clear>
+                  Toon alles
+                </a>
+              </div>
               <div class="archive-grid">
                 {sortedPosts.map((post) => {
                   const thumb = post.data.thumbnail;
+                  const archiveKey = post.data.date.slice(0, 7);
                   return (
-                    <article class="post-teaser">
+                    <article
+                      class="post-teaser"
+                      data-archive-item
+                      data-archive-month={archiveKey}
+                      data-archive-title={post.data.title}
+                      data-archive-excerpt={post.data.excerpt}
+                    >
                       {thumb && (
                         <a href={`/${post.slug}/`} class="post-teaser__thumb">
                           <img src={thumb} alt={post.data.title} />
@@ -311,7 +350,7 @@ const totalComments = isPost && entry.data.comments
                 <form role="search" class="archive-search" action="/nieuws/" method="get">
                   <label>
                     <span>Zoek naar:</span>
-                    <input type="search" name="s" placeholder="Zoeken" />
+                    <input type="search" name="s" placeholder="Zoeken" data-archive-search />
                   </label>
                 </form>
               </div>
@@ -320,7 +359,7 @@ const totalComments = isPost && entry.data.comments
                   <h5 class="sidebar-card__heading">Archieven</h5>
                   <ul class="sidebar-list">
                     {archiveSidebar.archives.map((a) => (
-                      <li><a href={a.href}>{a.label}</a></li>
+                      <li><a href={a.href} data-archive-link>{a.label}</a></li>
                     ))}
                   </ul>
                 </div>
@@ -341,7 +380,40 @@ const totalComments = isPost && entry.data.comments
       }
 
       {
-        !isOverviewPage && !isFaqPage && !isContactPage && !isSignupPage && !isArchivePage ? (
+        isLegalDocumentPage ? (
+          <section class="legal-document">
+            {entry.data.document.intro && (
+              <div class="prose legal-document__intro">
+                <p>{entry.data.document.intro}</p>
+              </div>
+            )}
+
+            <p class="legal-document__actions">
+              <a
+                class="button"
+                href={entry.data.document.pdfHref}
+                rel="noreferrer"
+                target="_blank"
+              >
+                {entry.data.document.downloadLabel ?? "Download pdf"}
+              </a>
+            </p>
+
+            <div class="legal-document__frame">
+              <iframe
+                src={entry.data.document.pdfHref}
+                title={entry.data.document.frameTitle ?? entry.data.title}
+                width="100%"
+                height="1200"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </section>
+        ) : null
+      }
+
+      {
+        !isOverviewPage && !isFaqPage && !isContactPage && !isSignupPage && !isArchivePage && !isLegalDocumentPage ? (
           hasSidebar ? (
             <div class="content-layout content-layout--has-sidebar">
               <div class="content-main">
@@ -384,11 +456,24 @@ const totalComments = isPost && entry.data.comments
             </div>
           ) : (
             <>
-              {hasBody && (
-                <div class={proseClass}>
-                  <Content />
-                </div>
+              {isPost && entry.data.thumbnail && !postBodyContainsThumbnail && (
+                <figure class="post-hero-image">
+                  <img src={entry.data.thumbnail} alt={entry.data.title} />
+                </figure>
               )}
+
+              {hasBody &&
+                (isPost ? (
+                  <article class="post-story-card">
+                    <div class={proseClass}>
+                      <Content />
+                    </div>
+                  </article>
+                ) : (
+                  <div class={proseClass}>
+                    <Content />
+                  </div>
+                ))}
 
               {isPage && entry.data.topics && entry.data.topics.length > 0 && (
                 <section class="topic-box">
@@ -424,8 +509,35 @@ const totalComments = isPost && entry.data.comments
       {
         isPost && entry.data.video ? (
           <section class="video-embed">
-            {entry.data.video.embed ? (
-              <div class="video-embed__frame" set:html={entry.data.video.embed} />
+            {videoEmbedSrc ? (
+              <div class="video-consent-card">
+                {entry.data.thumbnail && (
+                  <div class="video-consent-card__thumb">
+                    <img src={entry.data.thumbnail} alt={entry.data.title} />
+                  </div>
+                )}
+                <div class="video-consent-card__body">
+                  <h2>Video laden vanaf YouTube</h2>
+                  <p>
+                    Deze video wordt pas geladen nadat je daarvoor kiest. Pas na die klik maakt je browser contact met YouTube.
+                  </p>
+                  <div class="video-consent-card__actions">
+                    <button
+                      class="button"
+                      type="button"
+                      data-video-load
+                      data-video-src={videoEmbedSrc}
+                      data-video-title={entry.data.video.label}
+                    >
+                      Video laden
+                    </button>
+                    <a class="button button--ghost" href={entry.data.video.href} rel="noreferrer" target="_blank">
+                      Bekijk op YouTube
+                    </a>
+                  </div>
+                </div>
+                <div class="video-embed__frame" data-video-target hidden></div>
+              </div>
             ) : (
               <p>
                 Bekijk ook de video op

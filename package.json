@@ -4,14 +4,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro build && node scripts/postbuild.mjs",
+    "legal:pdf": "node scripts/generate-legal-pdfs.mjs",
+    "dev": "node scripts/generate-legal-pdfs.mjs && astro dev",
+    "build": "node scripts/generate-legal-pdfs.mjs && astro build && node scripts/postbuild.mjs",
     "preview": "astro preview"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.6.0",
     "altcha": "^3.0.2",
     "astro": "^5.13.3",
+    "gray-matter": "^4.0.3",
+    "markdown-it": "^14.1.1",
+    "pdf-parse": "^2.4.5",
+    "pdfkit": "^0.18.0",
+    "sanitize-html": "^2.17.3",
     "zod": "^3.24.2"
   }
 }
