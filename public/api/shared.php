@@ -328,6 +328,14 @@ function initialize_storage_schema(PDO $pdo): void
             error_message TEXT NOT NULL
         )'
     );
+
+    $pdo->exec(
+        'CREATE TABLE IF NOT EXISTS altcha_used_nonces (
+            nonce_hash TEXT PRIMARY KEY,
+            expires_at INTEGER NOT NULL,
+            created_at INTEGER NOT NULL
+        )'
+    );
 }
 
 function rate_limit_key(string $bucket, string $material): string
@@ -492,7 +500,7 @@ function log_form_event(
         FILE_APPEND | LOCK_EX
     );
 
-    if (in_array($decision, ['flagged', 'blocked', 'throttled'], true)) {
+    if (in_array($decision, ['flagged', 'blocked', 'throttled', 'captcha_failed'], true)) {
         file_put_contents(
             $paths['logs'] . '/form-events-suspicious.log',
             json_encode($record, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES) . PHP_EOL,

@@ -4,6 +4,7 @@ import Footer from "@/components/Footer.astro";
 import SocialsBlock from "@/components/SocialsBlock.astro";
 import { site, toAbsoluteUrl } from "@/lib/site";
 import "@/styles/global.css";
+import altchaClientUrl from "@/scripts/altcha.ts?url";
 
 interface Props {
   title: string;
@@ -65,6 +66,7 @@ const imageUrl = image.startsWith("http") ? image : toAbsoluteUrl(image);
     </main>
     {showSocials && <SocialsBlock />}
     <Footer />
+    <script type="module" src={altchaClientUrl}></script>
     <script>
       document.querySelectorAll("[data-js-timestamp]").forEach((field) => {
         if (field instanceof HTMLInputElement) {

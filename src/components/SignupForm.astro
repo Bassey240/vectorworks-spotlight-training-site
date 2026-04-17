@@ -84,6 +84,16 @@ import FormStatus from "@/components/FormStatus.astro";
       <span>Ja, ik ga akkoord met de <a href="/privacyverklaring/">privacyverklaring</a>.</span>
     </label>
 
+    <div class="site-form__altcha">
+      <altcha-widget
+        challenge="/api/altcha-challenge.php?form=signup"
+        auto="onsubmit"
+        display="standard"
+        name="altcha"
+      ></altcha-widget>
+      <p class="site-form__altcha-note">Spambeveiliging zonder tracking of cookies.</p>
+    </div>
+
     <button class="button" type="submit">Verzenden</button>
   </form>
 </div>

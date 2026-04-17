@@ -873,6 +873,28 @@ main { min-height: 60vh; }
 }
 .site-form__checkbox input { width: 1rem; margin-top: .3rem; }
 
+.site-form__altcha {
+  display: grid;
+  gap: .5rem;
+}
+
+.site-form__altcha-note {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+altcha-widget {
+  display: block;
+  --altcha-border-radius: var(--radius);
+  --altcha-max-width: 100%;
+  --altcha-color-primary: var(--blue);
+  --altcha-color-base-content: var(--text-dark);
+  --altcha-color-neutral: var(--border-strong);
+  --altcha-color-success: #2e8b57;
+  --altcha-color-error: #b93a32;
+}
+
 .form-status {
   margin-bottom: 1rem;
   padding: .8rem 1rem;

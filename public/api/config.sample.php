@@ -16,6 +16,14 @@ return [
         'subject_prefix' => '',
         'review_prefix' => '[Review]',
     ],
+    'altcha' => [
+        'enabled' => true,
+        'hmac_signature_secret' => 'replace-with-a-long-random-secret',
+        'challenge_expires_seconds' => 600,
+        'pbkdf2_cost' => 1000,
+        'key_length' => 32,
+        'key_prefix' => '00',
+    ],
     'security' => [
         'min_submit_seconds' => 3,
         'max_attempts_per_window' => 5,

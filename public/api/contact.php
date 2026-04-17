@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 require __DIR__ . '/shared.php';
+require __DIR__ . '/altcha-support.php';
 
 $returnPath = '/contact/';
 
@@ -69,6 +70,24 @@ try {
     ) {
         log_form_event('contact', 'invalid', 'invalid', $payload, ['score' => 0, 'signals' => []], $paths);
         redirect_with_status($returnPath, 'invalid');
+    }
+
+    if (altcha_enabled($config)) {
+        $altchaResult = altcha_verify_payload(post_string('altcha'), $config, $paths, 'contact');
+        if (($altchaResult['verified'] ?? false) !== true) {
+            log_form_event('contact', 'captcha_failed', 'captcha', $payload, [
+                'score' => 100,
+                'signals' => [
+                    'altcha' => [
+                        'score' => 100,
+                        'meta' => [
+                            'error' => $altchaResult['error'] ?? 'unknown',
+                        ],
+                    ],
+                ],
+            ], $paths);
+            redirect_with_status($returnPath, 'captcha');
+        }
     }
 
     $analysis = analyze_submission_risk('contact', $payload, $config, $paths, $attemptCounts);

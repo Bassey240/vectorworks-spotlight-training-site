@@ -34,6 +34,15 @@ De PHP handlers verwachten:
 - afzenderadres
 - ontvangeradres
 - pad naar een private logdirectory
+- ALTCHA HMAC secret voor de challenge signature
+
+De formulieren gebruiken nu:
+
+- honeypot + timing check
+- rate limiting op IP, e-mail en IP + user-agent
+- server-side spam scoring
+- ALTCHA proof-of-work verificatie
+- SQLite opslag als `PDO_SQLite` beschikbaar is, anders file fallback
 
 ## DNS cutover
 
