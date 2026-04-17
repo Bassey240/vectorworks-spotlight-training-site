@@ -113,7 +113,7 @@ function altcha_register_nonce_use(string $nonce, int $expiresAt, array $paths):
 function altcha_register_nonce_use_sqlite(PDO $pdo, string $nonceHash, int $expiresAt): bool
 {
     $now = time();
-    $pdo->exec('BEGIN IMMEDIATE');
+    $pdo->beginTransaction();
 
     try {
         $deleteStmt = $pdo->prepare('DELETE FROM altcha_used_nonces WHERE expires_at <= :now');
