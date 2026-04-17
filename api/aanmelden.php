@@ -138,7 +138,7 @@ try {
     $body = implode("\n", $bodyLines);
 
     try {
-        smtp_send_mail(
+        send_mail(
             $config,
             $payload['email'],
             $payload['name'],

@@ -10,6 +10,7 @@ return [
         'timeout' => 15,
     ],
     'mail' => [
+        'transport' => 'smtp',
         'from_email' => 'info@vectorworks-spotlight-training.nl',
         'from_name' => 'STB Services',
         'to_email' => 'info@vectorworks-spotlight-training.nl',
