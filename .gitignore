@@ -5,3 +5,4 @@ npm-debug.log*
 private/
 .DS_Store
 .claude/
+dist-deploy.zip

@@ -1,0 +1,75 @@
+name: Build Deploy Branch
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-deploy-branch
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      - name: Publish dist to deploy branch
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          SOURCE_SHA: ${{ github.sha }}
+        run: |
+          set -eu
+
+          DEPLOY_DIR="$(mktemp -d)"
+          REMOTE_URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${REPOSITORY}.git"
+
+          if git ls-remote --exit-code --heads "${REMOTE_URL}" deploy >/dev/null 2>&1; then
+            git clone --depth=1 --branch deploy "${REMOTE_URL}" "${DEPLOY_DIR}"
+          else
+            git clone --depth=1 "${REMOTE_URL}" "${DEPLOY_DIR}"
+            cd "${DEPLOY_DIR}"
+            git switch --orphan deploy
+            git rm -rf . >/dev/null 2>&1 || true
+            find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+            cd - >/dev/null
+          fi
+
+          find "${DEPLOY_DIR}" -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} +
+          cp -R dist/. "${DEPLOY_DIR}/"
+          touch "${DEPLOY_DIR}/.nojekyll"
+
+          cd "${DEPLOY_DIR}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add --all
+
+          if git diff --cached --quiet; then
+            echo "No deploy changes to publish."
+            exit 0
+          fi
+
+          git commit -m "Deploy ${SOURCE_SHA}"
+          git push origin deploy
