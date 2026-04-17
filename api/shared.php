@@ -370,7 +370,7 @@ function record_rate_attempt_sqlite(PDO $pdo, string $bucket, string $keyHash, i
 {
     $cutoff = $now - $windowSeconds;
 
-    $pdo->exec('BEGIN IMMEDIATE');
+    $pdo->beginTransaction();
 
     try {
         $deleteStmt = $pdo->prepare('DELETE FROM rate_limit_hits WHERE created_at <= :cutoff');
