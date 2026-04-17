@@ -19,40 +19,40 @@ import FormStatus from "@/components/FormStatus.astro";
 
     <label>
       <span>Bedrijfsnaam</span>
-      <input name="company" type="text" autocomplete="organization" placeholder="Bedrijfsnaam" />
+      <input name="company" type="text" autocomplete="organization" maxlength="160" placeholder="Bedrijfsnaam" />
     </label>
 
     <label>
       <span>Naam *</span>
-      <input name="name" type="text" required autocomplete="name" placeholder="Naam*" />
+      <input name="name" type="text" required autocomplete="name" maxlength="120" placeholder="Naam*" />
     </label>
 
     <label>
       <span>Adres</span>
-      <input name="address" type="text" autocomplete="street-address" placeholder="Adres" />
+      <input name="address" type="text" autocomplete="street-address" maxlength="200" placeholder="Adres" />
     </label>
 
     <div class="site-form__grid">
       <label>
         <span>Postcode</span>
-        <input name="postal_code" type="text" autocomplete="postal-code" placeholder="Postcode" />
+        <input name="postal_code" type="text" autocomplete="postal-code" maxlength="32" placeholder="Postcode" />
       </label>
 
       <label>
         <span>Woonplaats</span>
-        <input name="city" type="text" autocomplete="address-level2" placeholder="Woonplaats" />
+        <input name="city" type="text" autocomplete="address-level2" maxlength="120" placeholder="Woonplaats" />
       </label>
     </div>
 
     <div class="site-form__grid">
       <label>
         <span>Telefoonnummer *</span>
-        <input name="phone" type="tel" required autocomplete="tel" placeholder="Telefoon nummer*" />
+        <input name="phone" type="tel" required autocomplete="tel" maxlength="60" placeholder="Telefoon nummer*" />
       </label>
 
       <label>
         <span>E-mailadres *</span>
-        <input name="email" type="email" required autocomplete="email" placeholder="Email*" />
+        <input name="email" type="email" required autocomplete="email" maxlength="254" placeholder="Email*" />
       </label>
     </div>
 
@@ -74,6 +74,7 @@ import FormStatus from "@/components/FormStatus.astro";
         name="message"
         rows="6"
         required
+        maxlength="5000"
         placeholder="Hier kunt u vragen, opmerkingen en een voorkeur voor een periode aangeven."
       ></textarea>
     </label>

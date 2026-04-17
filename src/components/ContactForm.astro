@@ -10,27 +10,27 @@ import FormStatus from "@/components/FormStatus.astro";
 
     <label>
       <span>Bedrijfsnaam</span>
-      <input name="company" type="text" autocomplete="organization" placeholder="Bedrijfsnaam" />
+      <input name="company" type="text" autocomplete="organization" maxlength="160" placeholder="Bedrijfsnaam" />
     </label>
 
     <label>
       <span>Naam *</span>
-      <input name="name" type="text" required autocomplete="name" placeholder="Naam*" />
+      <input name="name" type="text" required autocomplete="name" maxlength="120" placeholder="Naam*" />
     </label>
 
     <label>
       <span>Telefoonnummer *</span>
-      <input name="phone" type="tel" required autocomplete="tel" placeholder="Telefoon nummer*" />
+      <input name="phone" type="tel" required autocomplete="tel" maxlength="60" placeholder="Telefoon nummer*" />
     </label>
 
     <label>
       <span>E-mailadres *</span>
-      <input name="email" type="email" required autocomplete="email" placeholder="Email*" />
+      <input name="email" type="email" required autocomplete="email" maxlength="254" placeholder="Email*" />
     </label>
 
     <label>
       <span>Vraag of bericht *</span>
-      <textarea name="message" rows="6" required placeholder="Uw vraag"></textarea>
+      <textarea name="message" rows="6" required maxlength="5000" placeholder="Uw vraag"></textarea>
     </label>
 
     <label class="site-form__checkbox">

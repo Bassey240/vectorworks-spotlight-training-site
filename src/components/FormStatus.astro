@@ -18,6 +18,22 @@ const messages: Record<string, { tone: "success" | "error"; text: string }> = {
     tone: "error",
     text: "De inzending is geblokkeerd. Neem contact op per e-mail als dit onterecht lijkt."
   },
+  captcha: {
+    tone: "error",
+    text: "De verificatie is niet gelukt. Probeer het formulier opnieuw te verzenden."
+  },
+  blocked_spam: {
+    tone: "error",
+    text: "De inzending is tegengehouden. Neem contact op per e-mail als dit onterecht lijkt."
+  },
+  review: {
+    tone: "success",
+    text: "Je bericht is ontvangen en wordt handmatig gecontroleerd. Ik kom zo snel mogelijk bij je terug."
+  },
+  mail_unavailable: {
+    tone: "error",
+    text: "Er ging iets mis bij het verzenden. Probeer het opnieuw of mail direct."
+  },
   error: {
     tone: "error",
     text: "Er ging iets mis bij het verzenden. Probeer het opnieuw of mail direct."
