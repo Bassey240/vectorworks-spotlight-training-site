@@ -1,16 +1,26 @@
 ---
 title: "Over mij"
-description: "Vectorworks Spotlight Training is een product van STB Services. STB staat voor Sebastiaan ten Broek."
+description: "Over Sebastiaan ten Broek van STB Services. Sinds 2000 actief in de evenementenbranche en trainer in Vectorworks Spotlight vanuit de praktijk."
 kind: "about"
 ---
 
-Vectorworks Spotlight Training is een product van STB Services. STB staat voor Sebastiaan ten Broek. Ik ben inmiddels meer dan 20 jaar werkzaam in de evenementen sector. Sinds het jaar 2010 heb ik mij bekwaamd als Vectorworks tekenaar, dit is mijn passie!
+STB Services staat voor Sebastiaan ten Broek. Sinds 2000 werk ik in de evenementenbranche als lichttechnicus, ontwerper en projectmanager. Sinds 2010 werk ik intensief met Vectorworks aan uiteenlopende projecten.
 
-Regelmatig kreeg ik de vraag van collega’s of ik hen op weg wilde helpen met Vectorworks Spotlight. Ik merkte dat ik het heel erg leuk vond om mijn kennis hierover te delen over anderen. Ook geeft het me veel energie om te merken dat mensen tijdens een cursus net zo enthousiast raken over Vectorworks als mij.
+## Hoe de trainingen zijn ontstaan
 
-Mijn ervaring heb ik opgedaan als lichttechnicus, projectmanager, werkvoorbereider en ontwerper. Mijn opdrachtgevers zijn audiovisuele verhuur bedrijven en evenementen productie bedrijven. Zo maak ik sinds een aantal jaar de podium en licht ontwerpen voor Loveland Events B.V.. En heb ik regelmatig opdrachten uitgevoerd voor o.a. PRG, Phlippo en Solid Rental.
+In de praktijk kreeg ik steeds vaker de vraag van collega’s of ik hen op weg wilde helpen met Vectorworks Spotlight. Daar zijn de trainingen uit ontstaan. Niet vanuit theorie, maar vanuit het dagelijkse werk met de software.
 
-Ik stuur u graag mijn portfolio. Klik hieronder op mijn foto om contact met mij op te nemen.
+Wat ik belangrijk vind, is dat een training niet alleen duidelijk is, maar ook direct bruikbaar. Je moet na afloop niet alleen weten waar een functie zit, maar vooral hoe je die inzet in een echt project.
+
+## Ervaring uit de praktijk
+
+Mijn ervaring heb ik opgebouwd als lichttechnicus, werkvoorbereider, projectmanager en ontwerper. Ik werk voor grote audiovisuele verhuurbedrijven, evenementenorganisaties en productiebedrijven. Die praktijkervaring neem ik mee in iedere training. Daardoor leer je niet alleen hoe Vectorworks Spotlight werkt, maar ook hoe het in de evenementenbranche echt wordt gebruikt.
+
+## Portfolio en contact
+
+Wil je voorbeelden zien van projecten waar ik aan heb gewerkt? Ik stuur je op verzoek graag mijn portfolio.
+
+Neem gerust [contact](/contact/) op als je wilt weten wat ik voor je kan betekenen.
 
 <p class="over-mij-portrait"><a href="/contact/"><img src="/wp-content/uploads/2021/07/Vectorworks-Trainer-Sebastiaan-ten-Broek-227x300.jpg" alt="Foto van Sebastiaan ten Broek" width="227" height="300" /></a></p>
 
