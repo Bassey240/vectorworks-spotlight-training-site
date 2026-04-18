@@ -1,6 +1,7 @@
 ---
 title: "Vectorworks cursus op maat"
 description: "Praktische Vectorworks cursus op maat voor de evenementenbranche. Werk vanuit je eigen vragen, dagelijkse praktijk en Vectorworks-bestanden aan een training die echt aansluit."
+seoTitle: "Vectorworks cursus op maat - Training op basis van jouw workflow"
 kind: "course"
 sidebar:
   title: "Cursusinformatie:"

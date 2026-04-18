@@ -1,6 +1,7 @@
 ---
 title: "Privacyverklaring"
 description: "Privacyverklaring voor de website en formulieren van STB Services."
+seoTitle: "Privacyverklaring | STB Services"
 kind: "legal"
 document:
   intro: "Je kunt de privacyverklaring hieronder direct lezen of als pdf downloaden."

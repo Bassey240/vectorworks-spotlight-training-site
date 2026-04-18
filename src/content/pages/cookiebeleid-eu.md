@@ -1,6 +1,7 @@
 ---
 title: "Cookiebeleid (EU)"
 description: "Cookiebeleid voor vectorworks-spotlight-training.nl."
+seoTitle: "Cookiebeleid | STB Services"
 kind: "legal"
 document:
   intro: "Je kunt het cookiebeleid hieronder direct lezen of als pdf downloaden."

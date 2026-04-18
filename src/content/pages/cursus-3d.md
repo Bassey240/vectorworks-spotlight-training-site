@@ -1,6 +1,7 @@
 ---
 title: "Vectorworks 3D cursus"
 description: "Praktische Vectorworks 3D cursus voor de evenementenbranche. Leer 3D objecten, decors en symbolen modelleren in Vectorworks."
+seoTitle: "Vectorworks 3D cursus - Leren modelleren in de praktijk"
 kind: "course"
 sidebar:
   title: "Cursusinformatie:"
