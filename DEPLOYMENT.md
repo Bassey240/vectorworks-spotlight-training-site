@@ -1,214 +1,329 @@
 # Deployment naar mijn.host
 
-Deze site is statisch gebouwd met Astro, maar gebruikt ook PHP-endpoints voor formulieren en ALTCHA. De deployment bestaat dus uit:
+Dit document beschrijft de **huidige** productiesetup van `vectorworks-spotlight-training.nl`.
 
-- de volledige inhoud van `dist/`
-- de PHP-bestanden in `dist/api/`
-- een private configuratie buiten de webroot
+## Huidige productiemodel
 
-## 1. Lokale build
+De live site draait met twee git-branches:
+
+- `main`
+  broncode, content, Astro, PHP, styles, scripts
+- `deploy`
+  volledig gebouwde productie-output uit `dist/`
+
+Flow:
+
+1. wijzigingen gaan naar `main`
+2. GitHub Action `Build Deploy Branch` draait
+3. de action buildt de site en publiceert de inhoud van `dist/` naar `deploy`
+4. productie op `mijn.host` is een git checkout van branch `deploy`
+
+Dus:
+
+- **nooit** `main` rechtstreeks naar `public_html` deployen
+- **altijd** `deploy` gebruiken voor live output
+
+## Live paden op mijn.host
+
+Huidige productieopzet:
+
+```text
+/home/es133110/domains/vectorworks-spotlight-training.nl/
+  private/
+    config.php
+    lists/
+    logs/
+    var/
+  public_html/        -> git checkout van origin/deploy
+  private_html/       -> symlink naar public_html
+  vectorworks-site.git
+```
+
+Belangrijke live paden:
+
+- webroot:
+  `/home/es133110/domains/vectorworks-spotlight-training.nl/public_html`
+- private config:
+  `/home/es133110/domains/vectorworks-spotlight-training.nl/private/config.php`
+- logs:
+  `/home/es133110/domains/vectorworks-spotlight-training.nl/private/logs`
+- state/storage:
+  `/home/es133110/domains/vectorworks-spotlight-training.nl/private/var`
+
+## Vereisten
+
+Lokale ontwikkeling:
+
+- Node.js 20+
+- npm
+
+Hosting:
+
+- Apache met `.htaccess`
+- PHP 8.x
+- `mod_headers`
+- schrijfbare private directory buiten webroot
+
+Optioneel maar nuttig:
+
+- `PDO_SQLite`
+
+## GitHub repository en workflow
+
+Bronrepo:
+
+- `git@github.com:Bassey240/vectorworks-spotlight-training-site.git`
+
+Workflow:
+
+- [/.github/workflows/build-deploy-branch.yml](/Users/sebastiaantenbroek/kDrive/STB Services/Coding/Website Vectorworks Spotlight Training/.github/workflows/build-deploy-branch.yml)
+
+De workflow:
+
+1. doet `npm ci`
+2. doet `npm run build`
+3. wist de inhoud van de `deploy` checkout
+4. kopieert `dist/.` naar `deploy`
+5. commit en push naar `deploy`
+
+## Handmatige release-flow
+
+### 1. Lokaal controleren
 
 ```bash
-npm install
 npm run build
 ```
 
-Controleer daarna minimaal:
+Controleer minimaal:
 
 - `/`
+- `/nieuws/`
 - `/contact/`
 - `/aanmelden/`
 - `/privacyverklaring/`
 - `/cookiebeleid-eu/`
 
-## 2. Hostingvereisten op mijn.host
+### 2. Push naar `main`
 
-Controleer in DirectAdmin of het pakket dit ondersteunt:
-
-- PHP 8.2 of 8.3
-- `openssl`
-- `pdo_sqlite` als beschikbaar
-- schrijfrechten voor een private map buiten `public_html`
-
-Belangrijk:
-
-- De formulieren werken ook zonder SQLite, maar SQLite heeft de voorkeur voor rate limiting en logging.
-- Zonder `mod_headers` werken de extra security headers uit `.htaccess` niet volledig.
-
-## 3. Private mappenstructuur
-
-Maak buiten `public_html` een private map aan, bijvoorbeeld:
-
-```text
-/home/<account>/private/
-  config.php
-  logs/
-  var/
-  lists/
+```bash
+git push github main
 ```
 
-Vereist:
+of, als `origin` hetzelfde remote is:
+
+```bash
+git push origin main
+```
+
+### 3. Wacht tot GitHub Actions klaar is
+
+Workflow moet groen zijn:
+
+- `Build Deploy Branch`
+
+### 4. Update productiecheckout
+
+Via SSH:
+
+```bash
+ssh -i .codex-deploy/mijnhost_vectorworks -p 26 es133110@h60.mijn.host
+cd /home/es133110/domains/vectorworks-spotlight-training.nl/public_html
+git pull --ff-only origin deploy
+```
+
+De live checkout staat op branch:
+
+- `deploy`
+
+met upstream:
+
+- `origin/deploy`
+
+## Eerste provisioning op mijn.host
+
+Dit is de benodigde eenmalige setup voor een nieuwe omgeving.
+
+### 1. Domein toevoegen
+
+Voeg in DirectAdmin een apart domein toe:
+
+- `vectorworks-spotlight-training.nl`
+
+### 2. Git repository op hosting
+
+Er is een aparte bare repo op hosting aangemaakt:
+
+- `vectorworks-site.git`
+
+Daarnaast is `public_html` een echte git checkout van `deploy`.
+
+### 3. SSH key voor deploy
+
+De productiecheckout gebruikt een GitHub deploy key die toegang heeft tot:
+
+- `Bassey240/vectorworks-spotlight-training-site`
+
+### 4. Private directory
+
+Maak aan:
+
+```text
+/home/es133110/domains/vectorworks-spotlight-training.nl/private/
+```
+
+met:
 
 - `config.php`
 - `logs/`
 - `var/`
+- optioneel `lists/`
 
-Aanbevolen:
+## Private configuratie
 
-- `lists/disposable_domains.txt`
+Gebruik [public/api/config.sample.php](/Users/sebastiaantenbroek/kDrive/STB Services/Coding/Website Vectorworks Spotlight Training/public/api/config.sample.php) als basis.
 
-De PHP-code zoekt standaard naar:
+De echte config staat **niet** in git.
+
+Minimale secties:
+
+- `smtp` of `sendmail`
+- `mail`
+- `altcha`
+- `security`
+
+Belangrijke keys:
+
+- `mail.transport`
+- `mail.from_email`
+- `mail.from_name`
+- `mail.to_email`
+- `altcha.enabled`
+- `altcha.hmac_signature_secret`
+
+## Mail
+
+De huidige site ondersteunt twee mailroutes:
+
+- `sendmail`
+- `smtp`
+
+Historisch is tijdens de migratie met beide gewerkt. Voor actuele operationele details:
+
+- zie [docs/FORMS_MAIL_AND_ALTCHA.md](docs/FORMS_MAIL_AND_ALTCHA.md)
+
+## SSL
+
+Voor Let’s Encrypt:
+
+1. domein moet naar de juiste webserver wijzen
+2. `/.well-known/acme-challenge/` mag niet kapotgerewrite worden
+3. vraag certificaat aan voor:
+   - `vectorworks-spotlight-training.nl`
+   - `www.vectorworks-spotlight-training.nl`
+
+Belangrijk:
+
+- [public/.htaccess](/Users/sebastiaantenbroek/kDrive/STB Services/Coding/Website Vectorworks Spotlight Training/public/.htaccess) laat `/.well-known/acme-challenge/` bewust buiten de HTTPS redirect
+
+## DNS
+
+Tijdens de livegang is gewerkt met:
+
+- website naar `mijn.host`
+- mail later gemigreerd
+
+Als alleen de website verhuist:
+
+- wijzig webrecords
+- laat mailrecords ongemoeid
+
+Als ook e-mail verhuist:
+
+- zorg eerst dat mailboxen op `mijn.host` werken
+- pas daarna mail-DNS of nameservers aan
+
+## Rollback
+
+Er zijn twee rollbackpaden.
+
+### Git rollback
+
+Op productie:
+
+```bash
+cd /home/es133110/domains/vectorworks-spotlight-training.nl/public_html
+git log --oneline
+git checkout <oude-deploy-commit>
+```
+
+Of beter:
+
+```bash
+git reset --hard <oude-deploy-commit>
+```
+
+Gebruik dit alleen op de live checkout als je bewust naar een eerdere build terug wilt.
+
+### Directory backup
+
+Tijdens de eerste live deploy is een backup gemaakt:
 
 ```text
-<project-root>/private
+/home/es133110/domains/vectorworks-spotlight-training.nl/public_html_backup_20260417-213129
 ```
 
-Wil je een ander pad gebruiken, stel dan de environment variable `STB_PRIVATE_ROOT` in.
+## Live smoke test
 
-## 4. Configuratie
+Na iedere deploy minimaal testen:
 
-Gebruik `dist/api/config.sample.php` als basis voor de echte private config.
+1. homepage laadt en hero-carousel werkt
+2. nieuwsarchief en nieuwsdetailpagina's werken
+3. privacy- en cookiepagina renderen de PDF-viewer
+4. contactformulier toont ALTCHA correct
+5. aanmeldformulier toont ALTCHA correct
+6. succesvolle form submit geeft statusmelding
+7. mail komt aan in `info@vectorworks-spotlight-training.nl`
 
-Belangrijkste waarden:
+## Veelvoorkomende problemen
 
-- SMTP host, gebruikersnaam en wachtwoord
-- `from_email`
-- `to_email`
-- ALTCHA secret
-- security thresholds
+### Git deploy laat nog oude site zien
 
-Voor deze site is de beoogde mailbox:
+Controleer:
 
-- `info@vectorworks-spotlight-training.nl`
+- GitHub Action groen?
+- `deploy` branch bevat nieuwe commit?
+- productiecheckout op `public_html` staat op `deploy`?
+- `git pull --ff-only origin deploy` uitgevoerd?
 
-### Minimaal voorbeeld
+### Let’s Encrypt faalt
 
-```php
-<?php
+Controleer:
 
-return [
-    'smtp' => [
-        'host' => 'smtp.jouw-provider.tld',
-        'port' => 587,
-        'encryption' => 'tls',
-        'username' => 'info@vectorworks-spotlight-training.nl',
-        'password' => 'vervang-dit',
-        'timeout' => 15,
-    ],
-    'mail' => [
-        'from_email' => 'info@vectorworks-spotlight-training.nl',
-        'from_name' => 'STB Services',
-        'to_email' => 'info@vectorworks-spotlight-training.nl',
-        'subject_prefix' => '',
-        'review_prefix' => '[Review]',
-    ],
-    'altcha' => [
-        'enabled' => true,
-        'hmac_signature_secret' => 'vervang-dit-met-een-lang-random-secret',
-    ],
-];
-```
+- DNS wijst naar de juiste server
+- `/.well-known/acme-challenge/` is bereikbaar via HTTP
+- geen foutieve IPv6-records
 
-## 5. Upload
+### Formulieren sturen geen mail
 
-Upload de volledige inhoud van `dist/` naar `public_html/`.
+Controleer:
 
-Controleer dat in `public_html/` aanwezig zijn:
+- `private/config.php`
+- mailbox bestaat echt
+- `mail.transport`
+- logs in `private/logs`
 
-- `.htaccess`
-- `api/contact.php`
-- `api/aanmelden.php`
-- `api/altcha-challenge.php`
-- `api/altcha-support.php`
-- `robots.txt`
-- `sitemap.xml`
+Zie:
 
-## 6. Security headers
+- [docs/FORMS_MAIL_AND_ALTCHA.md](docs/FORMS_MAIL_AND_ALTCHA.md)
 
-De site levert security headers via `public/.htaccess`. Controleer op hosting dat Apache `mod_headers` ondersteunt.
+### ALTCHA ziet er kapot uit of rendert niet
 
-Verwacht onder andere:
+Controleer:
 
-- `Content-Security-Policy`
-- `X-Content-Type-Options`
-- `Referrer-Policy`
-- `X-Frame-Options`
-- `Permissions-Policy`
+- `altcha/external` bundle
+- workers via self-hosted assets
+- CSP `worker-src 'self'`
 
-## 7. ALTCHA
+Ook gedocumenteerd in:
 
-Na deployment moet dit werken:
-
-- `POST` of `GET` naar `/api/altcha-challenge.php?form=contact`
-- idem voor `form=signup`
-
-Als ALTCHA niet werkt:
-
-- controleer `config.php`
-- controleer of PHP draait in `public_html/api/`
-- controleer schrijfrechten op `private/logs` en `private/var`
-
-## 8. Formulieren
-
-Test live minimaal:
-
-1. geldig contactformulier
-2. geldig aanmeldformulier
-3. formulier zonder ALTCHA
-4. formulier zonder privacy checkbox
-5. formulier met ongeldig e-mailadres
-
-Controleer daarna:
-
-- komt de mail aan?
-- wordt spam geblokkeerd?
-- worden logs geschreven?
-
-## 9. DNS
-
-Als het domein geregistreerd blijft bij TransIP, maar de site naar mijn.host verhuist:
-
-- pas alleen de webrecords of nameservers aan
-- verhuis niet automatisch de domeinregistratie zelf
-
-Laat mailrecords alleen aanpassen als de mailboxinrichting ook verandert.
-
-## 10. Plausible CE later inschakelen
-
-Plausible CE is voorbereid maar staat nu uit.
-
-Als je het later activeert:
-
-1. vul de Plausible config in `src/lib/site.ts`
-2. build opnieuw
-3. controleer of de CSP in `.htaccess` ook het Plausible hostdomein toelaat voor:
-   - `script-src`
-   - `connect-src`
-
-Zie ook:
-
-- [PLAUSIBLE_CE_SETUP.md](/Users/sebastiaantenbroek/kDrive/STB Services/Coding/Website Vectorworks Spotlight Training/PLAUSIBLE_CE_SETUP.md)
-
-## 11. Launch smoke test
-
-Controleer na livegang:
-
-- homepage
-- trainingen
-- FAQ
-- contact
-- aanmelden
-- privacyverklaring
-- cookiebeleid
-- nieuwsartikelen
-- `robots.txt`
-- `sitemap.xml`
-- formulieren inclusief mailaflevering
-- ALTCHA challenge endpoint
-
-## 12. Na livegang
-
-- controleer mailaflevering en spammap
-- monitor `logs/` en eventueel SQLite/file-based rate limiting
-- dien de sitemap opnieuw in bij Search Console
-- pas privacy/cookie teksten opnieuw aan zodra Plausible CE echt actief is
+- [docs/FORMS_MAIL_AND_ALTCHA.md](docs/FORMS_MAIL_AND_ALTCHA.md)
