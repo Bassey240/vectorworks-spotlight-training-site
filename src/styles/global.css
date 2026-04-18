@@ -1101,6 +1101,11 @@ main { min-height: 60vh; }
 altcha-widget {
   display: block;
   max-width: 100%;
+  font-size: 15px;
+  --altcha-max-width: 100%;
+  --altcha-padding: .9rem;
+  --altcha-border-radius: 12px;
+  --altcha-checkbox-size: 20px;
 }
 
 .form-status {
