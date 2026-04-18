@@ -1,7 +1,8 @@
 ---
 title: "Vectorworks Basis Cursus"
-description: "Vectorworks Basis Cursus⭐ Speciaal voor evenementen ⭐ Ervaren trainer uit de branche ⭐ Lage kosten per persoon"
+description: "Volg in 3 dagen de Vectorworks basis cursus. Klassikaal of via een videoverbinding word je begeleid door een ervaren trainer uit de evenementen sector."
 kind: "course"
+seoTitle: "Cursus Vectorworks Basis - Leer nu de beginselen van Vectorworks!"
 reviewedCopy: true
 sidebar:
   title: "Cursusinformatie:"

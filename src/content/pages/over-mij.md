@@ -1,7 +1,8 @@
 ---
 title: "Over mij"
-description: "Over Sebastiaan ten Broek van STB Services. Sinds 2000 actief in de evenementenbranche en trainer in Vectorworks Spotlight vanuit de praktijk."
+description: "Volg een Vectorworks cursus van een ervaren tekenaar, Sebastiaan ten Broek. Ik vertel je graag wat over mijzelf, mijn werk ervaring en mijn referenties."
 kind: "about"
+seoTitle: "Over mij - Leer Vectorworks van een ervaren tekenaar."
 sidebar:
   title: "Sebastiaan ten Broek"
   paragraphs:

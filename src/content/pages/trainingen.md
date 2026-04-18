@@ -1,8 +1,8 @@
 ---
 title: "Vectorworks trainingen"
-description: "Praktische Vectorworks trainingen voor de evenementenbranche: basis, Spotlight, 3D, rendering en maatwerk. Op locatie, online, privé of in een groep."
+description: "Leer Vectorworks Spotlight met een praktijkgerichte training. Volg verschillende Vectorworks trainingen van een trainer met kennis van evenementen."
 kind: "overview"
-seoTitle: "Vectorworks trainingen voor de evenementenbranche | STB Services"
+seoTitle: "Vectorworks Spotlight Training - Leer nu Vectorworks online of klassikaal"
 cards:
   - title: "Vectorworks Basis"
     subtitle: "Een gestructureerd begin met Vectorworks"

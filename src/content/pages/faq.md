@@ -2,6 +2,7 @@
 title: "Veelgestelde vragen"
 description: "Antwoorden op veelgestelde vragen over de Vectorworks trainingen, planning, licenties, groepsgroottes en voorkennis."
 kind: "faq"
+seoTitle: "Veelgestelde vragen - Vectorworks Spotlight Training"
 sidebar:
   title: "Vraag niet gevonden?"
   paragraphs:

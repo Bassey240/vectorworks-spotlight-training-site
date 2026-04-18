@@ -1,7 +1,8 @@
 ---
 title: "Vectorworks Spotlight cursus"
-description: "Vectorworks Spotlight Cursus⭐ Speciaal voor evenementen ⭐ Ervaren trainer uit de branche ⭐ Lage kosten per persoon"
+description: "Tijdens deze cursus komen specifieke tools van Vectorworks Spotlight aan bod. Na het volgen van deze training kun je licht, rigging en eventdesign modeleren"
 kind: "course"
+seoTitle: "Cursus Vectorworks Spotlight - Leer nu klassikaal of online"
 reviewedCopy: true
 sidebar:
   title: "Kosten:"
