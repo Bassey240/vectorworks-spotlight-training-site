@@ -243,11 +243,12 @@ const totalComments = isPost && entry.data.comments
 
       {
         isFaqPage ? (
-          <div class="content-layout">
-            <div class="content-main">
-              {sanitizedFaqIntro && (
-                <div class="prose faq-intro" set:html={sanitizedFaqIntro} />
-              )}
+          <>
+            {sanitizedFaqIntro && (
+              <div class="prose faq-intro" set:html={sanitizedFaqIntro} />
+            )}
+            <div class="content-layout">
+              <div class="content-main">
               <div class="faq-card">
                 <div class="faq-stack">
                   {sanitizedFaqItems.map((item) => (
@@ -273,6 +274,7 @@ const totalComments = isPost && entry.data.comments
               </aside>
             )}
           </div>
+          </>
         ) : null
       }
 
