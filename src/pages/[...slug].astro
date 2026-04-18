@@ -96,9 +96,10 @@ const isArchivePage = isPage && entry.data.kind === "archive";
 const isContactPage = isPage && entry.data.kind === "form" && entry.data.formType === "contact";
 const isSignupPage = isPage && entry.data.kind === "form" && entry.data.formType === "signup";
 const isLegalDocumentPage = isPage && entry.data.kind === "legal" && entry.data.document;
+const isAboutPage = isPage && entry.data.kind === "about";
 const isFormPage = isContactPage || isSignupPage;
 const hasSidebar = isPage && entry.data.sidebar;
-const proseClass = pathname === "/over-mij/" ? "prose prose--centered" : "prose";
+const proseClass = pathname === "/over-mij/" ? "prose prose--about" : "prose";
 const archiveSidebar = isArchivePage ? buildArchiveSidebar(sortedPosts) : null;
 const sanitizedFaqIntro = isFaqPage ? sanitizeFaqHtml(entry.data.faqIntro) : "";
 const sanitizedFaqItems = isFaqPage
@@ -242,21 +243,36 @@ const totalComments = isPost && entry.data.comments
 
       {
         isFaqPage ? (
-          <>
-            {sanitizedFaqIntro && (
-              <div class="prose faq-intro" set:html={sanitizedFaqIntro} />
-            )}
-            <div class="faq-card">
-              <div class="faq-stack">
-                {sanitizedFaqItems.map((item) => (
-                <details class="faq-item">
-                  <summary class="faq-item__question">{item.question}</summary>
-                  <div class="prose faq-item__answer" set:html={item.answerHtml} />
-                </details>
-                ))}
+          <div class="content-layout">
+            <div class="content-main">
+              {sanitizedFaqIntro && (
+                <div class="prose faq-intro" set:html={sanitizedFaqIntro} />
+              )}
+              <div class="faq-card">
+                <div class="faq-stack">
+                  {sanitizedFaqItems.map((item) => (
+                  <details class="faq-item">
+                    <summary class="faq-item__question">{item.question}</summary>
+                    <div class="prose faq-item__answer" set:html={item.answerHtml} />
+                  </details>
+                  ))}
+                </div>
               </div>
             </div>
-          </>
+            {hasSidebar && (
+              <aside class="content-sidebar">
+                <div class="sidebar-card">
+                  {entry.data.sidebar?.title && <h2 class="sidebar-card__title">{entry.data.sidebar.title}</h2>}
+                  {entry.data.sidebar?.paragraphs?.map((paragraph) => (
+                    <p>{paragraph}</p>
+                  ))}
+                  {entry.data.sidebar?.cta && (
+                    <a class="button" href={entry.data.sidebar.cta.href}>{entry.data.sidebar.cta.label}</a>
+                  )}
+                </div>
+              </aside>
+            )}
+          </div>
         ) : null
       }
 
@@ -420,12 +436,20 @@ const totalComments = isPost && entry.data.comments
       {
         !isOverviewPage && !isFaqPage && !isContactPage && !isSignupPage && !isArchivePage && !isLegalDocumentPage ? (
           hasSidebar ? (
-            <div class="content-layout content-layout--has-sidebar">
+            <div class:list={["content-layout", !isAboutPage && "content-layout--has-sidebar"]}>
               <div class="content-main">
                 {hasBody && (
-                  <div class={proseClass}>
-                    <Content />
-                  </div>
+                  isAboutPage ? (
+                    <article class="content-story-card">
+                      <div class={proseClass}>
+                        <Content />
+                      </div>
+                    </article>
+                  ) : (
+                    <div class={proseClass}>
+                      <Content />
+                    </div>
+                  )
                 )}
 
                 {isPage && entry.data.topics && entry.data.topics.length > 0 && (

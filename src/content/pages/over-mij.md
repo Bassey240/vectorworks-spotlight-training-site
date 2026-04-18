@@ -2,6 +2,15 @@
 title: "Over mij"
 description: "Over Sebastiaan ten Broek van STB Services. Sinds 2000 actief in de evenementenbranche en trainer in Vectorworks Spotlight vanuit de praktijk."
 kind: "about"
+sidebar:
+  title: "Sebastiaan ten Broek"
+  paragraphs:
+    - "Trainer en Vectorworks specialist"
+    - "Meer dan 20 jaar praktijkervaring"
+    - "Training op locatie of in 's-Hertogenbosch"
+  cta:
+    label: "Neem contact op"
+    href: "/contact/"
 ---
 
 STB Services staat voor Sebastiaan ten Broek. Sinds 2000 werk ik in de evenementenbranche als lichttechnicus, ontwerper en projectmanager. Sinds 2010 werk ik intensief met Vectorworks aan uiteenlopende projecten.

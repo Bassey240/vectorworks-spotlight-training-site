@@ -2,6 +2,15 @@
 title: "Veelgestelde vragen"
 description: "Antwoorden op veelgestelde vragen over de Vectorworks trainingen, planning, licenties, groepsgroottes en voorkennis."
 kind: "faq"
+sidebar:
+  title: "Vraag niet gevonden?"
+  paragraphs:
+    - "Bel of mail gerust voor advies."
+    - "06 25522442"
+    - "info@vectorworks-spotlight-training.nl"
+  cta:
+    label: "Contact opnemen"
+    href: "/contact/"
 faqIntro: "<p>Op deze pagina staan de antwoorden op de veelgestelde vragen over de Vectorworks trainingen. Staat je vraag hier niet bij? Neem dan gerust even contact op. Vul het <a href=\"/contact/\">contactformulier</a> in of bel naar 06-255224422.</p>"
 faqItems:
   - question: "Waar vinden de Vectorworks Spotlight trainingen plaats?"
