@@ -798,7 +798,7 @@ main { min-height: 60vh; }
 }
 
 .archive-toolbar {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
@@ -807,6 +807,14 @@ main { min-height: 60vh; }
   background: rgba(47, 84, 168, 0.06);
   border: 1px solid rgba(47, 84, 168, 0.14);
   border-radius: var(--radius);
+}
+
+.archive-toolbar[hidden] {
+  display: none !important;
+}
+
+.archive-toolbar.archive-toolbar--active {
+  display: flex;
 }
 
 .archive-toolbar__status {

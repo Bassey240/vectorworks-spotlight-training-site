@@ -46,6 +46,7 @@ if (archivePage) {
 
   if (toolbar && results && clearLink) {
     toolbar.hidden = !activeFilters;
+    toolbar.classList.toggle("archive-toolbar--active", activeFilters);
 
     if (activeFilters) {
       const parts: string[] = [];
@@ -73,6 +74,8 @@ if (archivePage) {
       const clearUrl = new URL(clearLink.href, window.location.origin);
       clearUrl.search = "";
       clearLink.href = clearUrl.pathname;
+    } else {
+      results.textContent = "";
     }
   }
 }
