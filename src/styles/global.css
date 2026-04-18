@@ -595,7 +595,11 @@ main { min-height: 60vh; }
 }
 
 .faq-stack { display: grid; gap: 0; }
-.faq-intro { margin-bottom: 2rem; font-size: 15px; }
+.faq-intro {
+  margin-top: 1rem;
+  margin-bottom: 1.2rem;
+  font-size: 15px;
+}
 .faq-intro a { color: var(--blue); text-decoration: underline; }
 
 .faq-item {
