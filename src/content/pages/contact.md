@@ -1,6 +1,7 @@
 ---
 title: "Contact"
 description: "Neem contact op met STB Services over trainingen, maatwerk of 2D en 3D tekenwerk."
+seoTitle: "Contact opnemen met Vectorworks training | STB Services"
 kind: "form"
 formType: "contact"
 ---

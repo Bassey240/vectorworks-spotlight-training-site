@@ -1,6 +1,7 @@
 ---
 title: "Vectorworks Rendering cursus"
 description: "Praktische Vectorworks Rendering cursus voor de evenementenbranche. Leer beter renderen in Vectorworks en krijg meer controle over texturen, belichting en rendertijd."
+seoTitle: "Vectorworks Rendering cursus - Leer renderen met Vectorworks"
 kind: "course"
 sidebar:
   title: "Cursusinformatie:"
