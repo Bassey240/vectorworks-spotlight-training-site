@@ -523,6 +523,11 @@ main { min-height: 60vh; }
   margin-bottom: 1.25rem;
 }
 
+.legal-document__mobile-note,
+.legal-document__mobile-actions {
+  display: none;
+}
+
 .legal-document__frame {
   margin-top: 1.5rem;
   border: 1px solid #d7dce8;
@@ -542,8 +547,20 @@ main { min-height: 60vh; }
 }
 
 @media (max-width: 767px) {
+  .legal-document__mobile-note {
+    display: block;
+    margin: 0 0 .75rem;
+    color: var(--muted);
+    font-size: 14px;
+  }
+
+  .legal-document__mobile-actions {
+    display: block;
+    margin: 0 0 1rem;
+  }
+
   .legal-document__frame {
-    height: 78vh;
+    display: none;
   }
 }
 
@@ -1065,13 +1082,7 @@ main { min-height: 60vh; }
 
 altcha-widget {
   display: block;
-  --altcha-border-radius: var(--radius);
-  --altcha-max-width: 100%;
-  --altcha-color-primary: var(--blue);
-  --altcha-color-base-content: var(--text-dark);
-  --altcha-color-neutral: var(--border-strong);
-  --altcha-color-success: #2e8b57;
-  --altcha-color-error: #b93a32;
+  max-width: 100%;
 }
 
 .form-status {

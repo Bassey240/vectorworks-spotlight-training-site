@@ -399,6 +399,21 @@ const totalComments = isPost && entry.data.comments
               </a>
             </p>
 
+            <p class="legal-document__mobile-note">
+              Op iPhone en iPad opent de pdf prettiger in de losse viewer van Safari.
+            </p>
+
+            <p class="legal-document__mobile-actions">
+              <a
+                class="button button--outline"
+                href={entry.data.document.pdfHref}
+                rel="noreferrer"
+                target="_blank"
+              >
+                Open pdf
+              </a>
+            </p>
+
             <div class="legal-document__frame">
               <iframe
                 src={entry.data.document.pdfHref}
