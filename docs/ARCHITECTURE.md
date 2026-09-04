@@ -196,7 +196,7 @@ Laadt YouTube pas na expliciete interactie.
 
 ## Analytics
 
-De centrale configuratie in `src/lib/site.ts` activeert de propertyspecifieke Plausible-tracker. `BaseLayout.astro` plaatst deze één keer in de gedeelde productie-`head`. Events gaan naar de self-hosted endpoint op `stats.stb-vw.com`.
+De centrale configuratie in `src/lib/site.ts` activeert de propertyspecifieke Plausible-tracker. `public/assets/plausible-init.js` initialiseert de tracker met de geconfigureerde event-endpoint, waarna `BaseLayout.astro` de propertybundle één keer in de gedeelde productie-`head` plaatst. Events gaan naar de self-hosted endpoint op `stats.stb-vw.com`.
 
 De tracker registreert pageviews, uitgaande links, bestandsdownloads en geldige formulierinzendingen. Er worden geen formuliervelden of omzetgegevens meegestuurd en de integratie plaatst geen analytische cookies.
 

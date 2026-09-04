@@ -9,7 +9,7 @@ This site uses a self-hosted Plausible Analytics property for `vectorworks-spotl
 - Property domain: `vectorworks-spotlight-training.nl`
 - Runtime: self-hosted Plausible on STB-controlled VPS infrastructure
 
-The central configuration lives in `/src/lib/site.ts`. `/src/layouts/BaseLayout.astro` injects the tracker once in the shared production page head. Development pages do not load it.
+The central configuration lives in `/src/lib/site.ts`. `/src/layouts/BaseLayout.astro` loads `/public/assets/plausible-init.js` and then injects the tracker once in the shared production page head. The local initializer uses the configured event endpoint and does not create cookies or browser storage. Development pages do not load either script.
 
 ## Automatic events
 

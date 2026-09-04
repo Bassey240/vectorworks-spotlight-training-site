@@ -30,6 +30,8 @@ const plausibleScriptUrl =
   import.meta.env.PROD && site.analytics.enabled && plausibleConfig?.scriptUrl
     ? plausibleConfig.scriptUrl
     : null;
+const plausibleApiEndpoint =
+  plausibleScriptUrl && plausibleConfig?.apiEndpoint ? plausibleConfig.apiEndpoint : null;
 ---
 
 <!doctype html>
@@ -46,7 +48,12 @@ const plausibleScriptUrl =
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
 
-    {plausibleScriptUrl && <script async src={plausibleScriptUrl} />}
+    {plausibleScriptUrl && (
+      <>
+        <script is:inline src="/assets/plausible-init.js" data-endpoint={plausibleApiEndpoint || undefined} />
+        <script is:inline async src={plausibleScriptUrl} />
+      </>
+    )}
 
     <meta property="og:site_name" content={site.company} />
     <meta property="og:type" content="website" />
