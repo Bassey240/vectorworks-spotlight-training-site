@@ -10,7 +10,7 @@ document:
   frameTitle: "Cookiebeleid STB Services"
 ---
 
-Laatst bijgewerkt: 17 april 2026.
+Laatst bijgewerkt: 4 september 2026.
 
 Dit cookiebeleid beschrijft welke cookies en vergelijkbare technieken op [vectorworks-spotlight-training.nl](https://vectorworks-spotlight-training.nl) worden gebruikt.
 
@@ -21,15 +21,21 @@ Deze website is bewust eenvoudig opgezet. Op dit moment gebruiken wij:
 - geen Google Analytics
 - geen Google reCAPTCHA
 - geen marketing- of advertentiecookies
-- geen actieve webanalytics
+- geen analytische cookies
 
-Plausible CE is technisch voorbereid, maar is op het moment van dit beleid nog niet actief.
+Wij gebruiken een self-hosted installatie van Plausible Analytics voor privacyvriendelijke websiteanalyse. Deze installatie draait op VPS-infrastructuur onder beheer van STB Services en gebruikt geen cookies.
 
 ## 2. Wat gebruikt de site op dit moment?
 
 ### Formulierbeveiliging
 
 Voor de contact- en aanmeldformulieren gebruiken wij ALTCHA en aanvullende beveiligingsmaatregelen tegen spam en misbruik. Deze oplossing is bij ons privacyvriendelijk opgezet en gebruikt geen tracking- of marketingcookies.
+
+### Plausible Analytics
+
+Plausible meet paginaweergaven, klikken op uitgaande links, bestandsdownloads en geldige formulierinzendingen. De tracker stuurt geen ingevulde formuliervelden of omzetgegevens mee. Plausible plaatst geen cookies en schrijft geen permanente identificator naar je browser.
+
+De analyticssoftware draait self-hosted via `stats.stb-vw.com` op VPS-infrastructuur onder beheer van STB Services. Wij gebruiken hiervoor niet de externe Plausible SaaS-dienst.
 
 ### Google Fonts
 
@@ -41,15 +47,15 @@ Op sommige pagina's kan een video van YouTube beschikbaar zijn. Die video wordt 
 
 Vanaf dat moment kan YouTube of Google technische gegevens verwerken en kunnen er cookies of vergelijkbare technieken worden gebruikt door die externe partij.
 
-## 3. Plaatsen wij zelf analytics- of marketingcookies?
+## 3. Plaatsen wij analytics- of marketingcookies?
 
-Nee. Op het moment van dit beleid plaatsen wij zelf geen analytics- of marketingcookies op publieke pagina's van deze website.
+Nee. Plausible werkt op deze website zonder analytische cookies. Wij plaatsen ook geen marketing- of advertentiecookies op publieke pagina's van deze website.
 
 ## 4. Is er een cookiebanner?
 
-Op dit moment gebruiken wij geen algemene cookiebanner voor de hele website. Voor externe video-inhoud vragen wij de bezoeker eerst om een expliciete handeling op de pagina zelf, voordat de verbinding met YouTube wordt gemaakt.
+Wij gebruiken geen algemene cookiebanner voor de hele website. De cookieloze Plausible-tracker wordt bij het openen van een pagina geladen. Voor externe video-inhoud vragen wij de bezoeker nog steeds eerst om een expliciete handeling op de pagina zelf, voordat de verbinding met YouTube wordt gemaakt.
 
-Als de technische opzet verandert, bijvoorbeeld wanneer analytics daadwerkelijk wordt ingeschakeld of nieuwe embedded diensten direct worden geladen, passen wij dit beleid en zo nodig ook de toestemmingsflow aan.
+Als de technische opzet verandert, bijvoorbeeld wanneer cookies worden toegevoegd of nieuwe embedded diensten direct worden geladen, passen wij dit beleid en zo nodig ook de toestemmingsflow aan.
 
 ## 5. Cookies beheren of verwijderen
 

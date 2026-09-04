@@ -59,6 +59,7 @@ Verantwoordelijk voor:
 - Open Graph / social tags
 - structured data injectie
 - globale script includes
+- de eenmalige Plausible-tracker in de productie-`head`
 - header/footer
 
 ### 4. PHP/API-laag
@@ -192,6 +193,12 @@ Renderde legal PDF's op basis van `pdfjs-dist` direct in de pagina.
 ### `video-consent.ts`
 
 Laadt YouTube pas na expliciete interactie.
+
+## Analytics
+
+De centrale configuratie in `src/lib/site.ts` activeert de propertyspecifieke Plausible-tracker. `BaseLayout.astro` plaatst deze één keer in de gedeelde productie-`head`. Events gaan naar de self-hosted endpoint op `stats.stb-vw.com`.
+
+De tracker registreert pageviews, uitgaande links, bestandsdownloads en geldige formulierinzendingen. Er worden geen formuliervelden of omzetgegevens meegestuurd en de integratie plaatst geen analytische cookies.
 
 ## SEO en structured data
 

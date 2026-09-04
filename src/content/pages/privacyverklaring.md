@@ -10,7 +10,7 @@ document:
   frameTitle: "Privacyverklaring STB Services"
 ---
 
-Laatst bijgewerkt: 17 april 2026.
+Laatst bijgewerkt: 4 september 2026.
 
 Deze privacyverklaring legt uit welke persoonsgegevens STB Services via deze website verwerkt, waarom dat gebeurt en hoe daarmee wordt omgegaan.
 
@@ -36,6 +36,7 @@ Als je contact opneemt of je via deze site aanmeldt, kunnen wij de volgende gege
 - e-mailadres
 - cursusinteresse, vraag, bericht of opmerking
 - technische gegevens die nodig zijn voor de beveiliging van formulieren, zoals IP-adres, browserinformatie en anti-spamcontrole
+- geaggregeerde gebruiksgegevens voor websiteanalyse, zoals bezochte pagina's, verwijzende websites, browser, besturingssysteem, apparaattype, globale locatie en interacties met uitgaande links, downloads en formulieren
 
 ## Waarvoor gebruiken wij deze gegevens?
 
@@ -46,6 +47,7 @@ Wij gebruiken deze gegevens alleen voor wat nodig is om de website en onze diens
 - het plannen van contact over data, inhoud of offertes
 - het beveiligen van formulieren tegen spam en misbruik
 - het technisch beheren en beveiligen van de website
+- het meten en verbeteren van het gebruik van de website
 - het voldoen aan administratieve of wettelijke verplichtingen
 
 ## Op welke grondslag doen wij dat?
@@ -54,10 +56,10 @@ Wij verwerken persoonsgegevens op basis van een of meer van de volgende grondsla
 
 - jouw toestemming, bijvoorbeeld wanneer je een formulier verstuurt
 - de voorbereiding of uitvoering van een overeenkomst
-- een gerechtvaardigd belang, zoals websitebeveiliging, spamfiltering en technisch beheer
+- een gerechtvaardigd belang, zoals websitebeveiliging, spamfiltering, technisch beheer en privacyvriendelijke gebruiksstatistieken
 - een wettelijke verplichting, als die van toepassing is
 
-## Delen wij gegevens met derden?
+## Delen wij gegevens met derden en verwerkers?
 
 Wij verkopen jouw gegevens niet. Als dat nodig is voor het functioneren van de website of onze dienstverlening, kunnen gegevens wel worden verwerkt door partijen die voor ons techniek leveren, zoals:
 
@@ -70,7 +72,15 @@ Daarnaast maakt deze site gebruik van enkele externe diensten die pas relevant z
 - Google Fonts voor lettertypen
 - YouTube voor video's op specifieke pagina's, maar pas nadat je er zelf voor kiest om zo'n video te laden
 
-Op het moment van deze verklaring gebruiken wij geen actieve webanalytics op deze website.
+Voor websiteanalyse gebruikt STB Services Plausible Analytics. Deze opensourcesoftware draait self-hosted op VPS-infrastructuur onder beheer van STB Services en is bereikbaar via `stats.stb-vw.com`. De meetgegevens gaan niet naar de Plausible SaaS-dienst. Plausible is daarom geen externe SaaS-subverwerker voor deze verwerking; de leverancier van de software ontvangt de meetgegevens niet.
+
+## Websiteanalyse met Plausible
+
+Wij gebruiken Plausible Analytics om algemene trends in websitebezoek te meten. Plausible plaatst geen analytische cookies, gebruikt geen permanente identificatoren en volgt bezoekers niet over websites of dagen heen.
+
+Voor een bezoek verwerkt de analyticsserver het IP-adres en de user-agent kort om geaggregeerde statistieken en een dagelijks wisselende bezoekersidentificatie te maken. Het ruwe IP-adres en de volledige user-agent worden niet opgeslagen. De rapportage kan onder meer paginaweergaven, verwijzende websites, browser, besturingssysteem, apparaattype en globale locatie bevatten.
+
+De tracker meet ook klikken op uitgaande links, bestandsdownloads en geldige formulierinzendingen. Daarbij worden geen ingevulde formuliervelden of omzetgegevens naar Plausible gestuurd.
 
 ## Formulierbeveiliging en spamfiltering
 

@@ -283,6 +283,8 @@ Na iedere deploy minimaal testen:
 5. aanmeldformulier toont ALTCHA correct
 6. succesvolle form submit geeft statusmelding
 7. mail komt aan in `info@vectorworks-spotlight-training.nl`
+8. Plausible-tracker laadt met HTTP `200`
+9. pageview-, outbound-link-, download- en form-events antwoorden met HTTP `202`
 
 ## Veelvoorkomende problemen
 

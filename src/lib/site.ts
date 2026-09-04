@@ -51,11 +51,11 @@ export const site = {
   ],
   analytics: {
     provider: "plausible",
-    enabled: false,
+    enabled: true,
     plausible: {
-      scriptUrl: "",
+      scriptUrl: "https://stats.stb-vw.com/js/pa-cIzfrcUgbuod2DhhacR-h.js",
       dataDomain: "vectorworks-spotlight-training.nl",
-      apiEndpoint: ""
+      apiEndpoint: "https://stats.stb-vw.com/api/event"
     }
   }
 } as const;

@@ -6,6 +6,7 @@ Astro-site voor `vectorworks-spotlight-training.nl` met:
 - Markdown content collections
 - PHP-form handlers voor `contact` en `aanmelden`
 - ALTCHA spambeveiliging
+- self-hosted Plausible Analytics
 - juridische PDF-weergave en PDF-generatie
 - git-based productiedeploy naar `mijn.host`
 
@@ -25,10 +26,8 @@ Actuele documentatie:
   Dagelijks beheer, smoke tests, logging, rollback en launch-checks.
 - [docs/WORDPRESS_ARCHIVE.md](docs/WORDPRESS_ARCHIVE.md)
   Back-up en lokale restore van de oude WordPress-site.
-- [PLAUSIBLE_CE_HOMELAB_PLAN.md](PLAUSIBLE_CE_HOMELAB_PLAN.md)
-  Plan voor latere Plausible CE self-hosting op het homelab.
 - [PLAUSIBLE_CE_SETUP.md](PLAUSIBLE_CE_SETUP.md)
-  Repo-voorbereiding voor latere Plausible activatie.
+  Actuele Plausible-configuratie, privacykeuzes en verificatie.
 
 Historische plandocumenten:
 
@@ -37,6 +36,7 @@ Historische plandocumenten:
 - [FORMS_ARCHITECTURE_RESPONSE.md](FORMS_ARCHITECTURE_RESPONSE.md)
 - [VECTORWORKS_FORM_IMPLEMENTATION_PLAN.md](VECTORWORKS_FORM_IMPLEMENTATION_PLAN.md)
 - [IMPLEMENTATION_PLAN.md](IMPLEMENTATION_PLAN.md)
+- [PLAUSIBLE_CE_HOMELAB_PLAN.md](PLAUSIBLE_CE_HOMELAB_PLAN.md)
 
 Deze historische docs zijn nuttig als context, maar niet de primaire source of truth voor de huidige live setup.
 
@@ -183,12 +183,14 @@ De live pagina's renderen deze PDF's in een eigen canvas-viewer.
 
 ## Analytics
 
-Plausible staat voorbereid in de repo, maar momenteel uit:
+De site gebruikt een eigen Plausible-property via `stats.stb-vw.com`:
 
-- config in [src/lib/site.ts](src/lib/site.ts)
-- plannen in:
-  - [PLAUSIBLE_CE_SETUP.md](PLAUSIBLE_CE_SETUP.md)
-  - [PLAUSIBLE_CE_HOMELAB_PLAN.md](PLAUSIBLE_CE_HOMELAB_PLAN.md)
+- self-hosted op STB-beheerde VPS-infrastructuur
+- zonder analytische cookies
+- automatische pageviews, uitgaande links, bestandsdownloads en geldige formulierinzendingen
+- geen formuliervelden, omzettracking of externe Plausible SaaS-subverwerker
+
+De configuratie staat in [src/lib/site.ts](src/lib/site.ts). Zie [PLAUSIBLE_CE_SETUP.md](PLAUSIBLE_CE_SETUP.md) voor de actuele endpoints, CSP en verificatie.
 
 ## Aanbevolen routine bij wijzigingen
 

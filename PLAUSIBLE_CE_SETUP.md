@@ -1,45 +1,46 @@
 # Plausible CE Setup
 
-This site is already prepared for a self-hosted Plausible CE script, but tracking is disabled by default.
+This site uses a self-hosted Plausible Analytics property for `vectorworks-spotlight-training.nl`.
 
-## What is already in place
+## Production configuration
 
-- A central analytics config in `/src/lib/site.ts`
-- Conditional script injection in `/src/layouts/BaseLayout.astro`
-- No tracking script is loaded until the config is explicitly enabled
+- Tracker: `https://stats.stb-vw.com/js/pa-cIzfrcUgbuod2DhhacR-h.js`
+- Event endpoint: `https://stats.stb-vw.com/api/event`
+- Property domain: `vectorworks-spotlight-training.nl`
+- Runtime: self-hosted Plausible on STB-controlled VPS infrastructure
 
-## What to fill in later
+The central configuration lives in `/src/lib/site.ts`. `/src/layouts/BaseLayout.astro` injects the tracker once in the shared production page head. Development pages do not load it.
 
-Update `/src/lib/site.ts`:
+## Automatic events
 
-```ts
-analytics: {
-  provider: "plausible",
-  enabled: true,
-  plausible: {
-    scriptUrl: "https://analytics.your-domain.tld/js/script.js",
-    dataDomain: "vectorworks-spotlight-training.nl",
-    apiEndpoint: "https://analytics.your-domain.tld/api/event"
-  }
-}
-```
+The property-specific tracker automatically records:
 
-## Notes
+- pageviews
+- outbound link clicks as `Outbound Link: Click`
+- downloads of supported file types as `File Download`
+- valid form submissions as `Form: Submission`
 
-- `scriptUrl` is required to enable tracking.
-- `dataDomain` should match the tracked site domain in Plausible.
-- `apiEndpoint` is optional. Keep it empty if you use the default Plausible endpoint behavior.
-- Once Plausible CE is live, the privacy and cookie texts should be updated to reflect:
-  - ALTCHA for spam protection
-  - Plausible CE for privacy-friendly analytics
-  - Google Fonts
-  - YouTube embeds where applicable
+The integration does not send form field contents or revenue values.
 
-## Suggested shared setup
+## CSP
 
-If both websites will use the same Plausible CE instance:
+`public/.htaccess` allows `https://stats.stb-vw.com` only in:
 
-- run one Plausible CE installation
-- create a separate property for each website
-- use a dedicated `dataDomain` per site
-- reuse the same Plausible host, but keep the site properties separate
+- `script-src`, for the tracker
+- `connect-src`, for events
+
+All other CSP directives remain unchanged.
+
+## Privacy and subprocessor status
+
+- The tracker does not set analytics cookies or persistent visitor identifiers.
+- The Plausible software is self-hosted on STB-controlled VPS infrastructure.
+- Plausible SaaS is not used and Plausible is not an external SaaS subprocessor for these analytics events.
+- The existing consent gate for YouTube remains separate and unchanged.
+
+The public privacy and cookie texts are maintained in:
+
+- `src/content/pages/privacyverklaring.md`
+- `src/content/pages/cookiebeleid-eu.md`
+
+Their PDF versions are generated during every build.

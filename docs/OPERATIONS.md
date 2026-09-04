@@ -28,6 +28,7 @@ Controleer na deploy:
 - cookiebeleid
 - `robots.txt`
 - `sitemap.xml`
+- Plausible tracker (`200`) en events (`202`)
 
 ## Form smoke test
 
@@ -112,18 +113,25 @@ Na livegang of grote SEO-wijzigingen:
 https://vectorworks-spotlight-training.nl/sitemap.xml
 ```
 
-## Plausible later
+## Plausible analytics
 
-Analytics staat nog uit. Als Plausible later wordt aangezet:
+Plausible is actief via de self-hosted STB-infrastructuur:
 
-1. homelab/VPS inrichten
-2. config invullen in `src/lib/site.ts`
-3. build/deploy opnieuw doen
-4. CSP uitbreiden voor stats-domein
+- tracker: `https://stats.stb-vw.com/js/pa-cIzfrcUgbuod2DhhacR-h.js`
+- events: `https://stats.stb-vw.com/api/event`
+- property: `vectorworks-spotlight-training.nl`
+
+Controleer na een analyticswijziging minimaal:
+
+1. de tracker staat één keer in de document-`head` en antwoordt met HTTP `200`
+2. een pageview antwoordt met HTTP `202`
+3. een externe link verstuurt `Outbound Link: Click`
+4. een pdf- of ziplink verstuurt `File Download`
+5. een geldige formulierinzending verstuurt `Form: Submission`
+6. de eventresponses bevatten niet `x-plausible-dropped: 1`
 
 Zie:
 
-- [PLAUSIBLE_CE_HOMELAB_PLAN.md](../PLAUSIBLE_CE_HOMELAB_PLAN.md)
 - [PLAUSIBLE_CE_SETUP.md](../PLAUSIBLE_CE_SETUP.md)
 
 ## Performance-onderhoud

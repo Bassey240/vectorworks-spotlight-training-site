@@ -1,5 +1,7 @@
 # Plausible CE Homelab Plan
 
+> Historisch plan. De actuele productie-integratie draait via `stats.stb-vw.com` op STB-beheerde VPS-infrastructuur en staat beschreven in `PLAUSIBLE_CE_SETUP.md`.
+
 ## Doel
 
 Een eigen Plausible Community Edition installatie draaien op het Proxmox homelab en deze site daarna koppelen aan die analytics instance.
