@@ -86,7 +86,10 @@ const plausibleApiEndpoint =
       import "@/scripts/news-archive-filter";
       import "@/scripts/video-consent";
       import "@/scripts/home-carousel";
-      import "@/scripts/legal-pdf-viewer";
+
+      if (document.querySelector("[data-pdf-viewer]")) {
+        import("@/scripts/legal-pdf-viewer");
+      }
     </script>
   </body>
 </html>
