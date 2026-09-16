@@ -11,7 +11,7 @@ sidebar:
     - "Voor individuele gebruikers en organisaties"
   cta:
     label: "NAAR STB-VW.COM"
-    href: "https://stb-vw.com"
+    href: "https://stb-vw.com/nl/plugins/"
 ---
 
 ## Vectorworks plugins en scripts
@@ -24,24 +24,54 @@ Voor een groeiend aanbod van Vectorworks plugins, tools en downloads verwijs ik 
 
 <div class="external-preview-card">
   <div class="external-preview-card__grid">
-    <a class="external-preview-card__item" href="https://stb-vw.com" rel="noreferrer" target="_blank">
+    <a class="external-preview-card__item" href="https://stb-vw.com/nl/plugins/" rel="noreferrer" target="_blank">
       <div class="external-preview-card__media">
         <img src="/assets/external-previews/stb-vw-home.png" alt="Preview van stb-vw.com" loading="lazy" />
       </div>
       <div class="external-preview-card__meta">
         <p class="external-preview-card__domain">stb-vw.com</p>
-        <h3>Home - STB-VW Tools</h3>
-        <p>Bekijk mijn kant-en-klare Vectorworks plugins, tools en downloads.</p>
+        <h3>Alle Vectorworks-plugins</h3>
+        <p>Bekijk het volledige actuele aanbod van STB-VW Tools.</p>
       </div>
     </a>
-    <a class="external-preview-card__item" href="https://stb-vw.com/vectorworks_plugins/symbol-line-vectorworks-plugin" rel="noreferrer" target="_blank">
+    <a class="external-preview-card__item" href="https://stb-vw.com/nl/plugins/symbol-line/" rel="noreferrer" target="_blank">
       <div class="external-preview-card__media">
         <img src="/assets/external-previews/stb-vw-symbol-line.png" alt="Preview van de Symbol Line pluginpagina op stb-vw.com" loading="lazy" />
       </div>
       <div class="external-preview-card__meta">
         <p class="external-preview-card__domain">stb-vw.com</p>
-        <h3>Symbol Line Tool for Vectorworks</h3>
-        <p>Directe link naar de plugin voor het plaatsen van gekoppelde symbolen langs een lijn.</p>
+        <h3>Symbol Line</h3>
+        <p>Plaats gekoppelde symbolen langs een lijn in Vectorworks.</p>
+      </div>
+    </a>
+    <a class="external-preview-card__item" href="https://stb-vw.com/nl/plugins/pretty-patch-list/" rel="noreferrer" target="_blank">
+      <div class="external-preview-card__media">
+        <img src="/assets/external-previews/stb-vw-pretty-patchlist.png" alt="Voorbeeld van een DMX patch list gemaakt met Pretty Patchlist" loading="lazy" />
+      </div>
+      <div class="external-preview-card__meta">
+        <p class="external-preview-card__domain">stb-vw.com</p>
+        <h3>Pretty Patchlist</h3>
+        <p>Maak opgemaakte DMX patch list Worksheets van de Lighting Devices in je tekening.</p>
+      </div>
+    </a>
+    <a class="external-preview-card__item" href="https://stb-vw.com/nl/plugins/import-pdok-geodata/" rel="noreferrer" target="_blank">
+      <div class="external-preview-card__media">
+        <img src="/assets/external-previews/stb-vw-import-pdok-geodata.png" alt="Nederlandse kaartgegevens geïmporteerd in Vectorworks met Import PDOK Geodata" loading="lazy" />
+      </div>
+      <div class="external-preview-card__meta">
+        <p class="external-preview-card__domain">stb-vw.com</p>
+        <h3>Import PDOK Geodata</h3>
+        <p>Importeer Nederlandse kaartgegevens, gebouwen en terrein op de juiste positie in Vectorworks.</p>
+      </div>
+    </a>
+    <a class="external-preview-card__item" href="https://stb-vw.com/nl/plugins/free/" rel="noreferrer" target="_blank">
+      <div class="external-preview-card__media">
+        <img src="/assets/external-previews/stb-vw-free-plugins.svg" alt="Voorbeeld van een gratis STB-VW-plugin voor Vectorworks" loading="lazy" />
+      </div>
+      <div class="external-preview-card__meta">
+        <p class="external-preview-card__domain">stb-vw.com</p>
+        <h3>Gratis plugins</h3>
+        <p>Bekijk gratis Vectorworks-tools zonder afrekenen of licentiesleutel.</p>
       </div>
     </a>
   </div>
