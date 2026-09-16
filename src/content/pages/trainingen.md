@@ -6,7 +6,7 @@ seoTitle: "Vectorworks Spotlight Training - Leer nu Vectorworks online of klassi
 cards:
   - title: "Vectorworks Basis"
     subtitle: "Een gestructureerd begin met Vectorworks"
-    price: "495"
+    price: "519"
     period: "3 dagen"
     features:
       - "2D tools en basisvaardigheden"
@@ -17,7 +17,7 @@ cards:
     footerNote: "Het beste startpunt om Vectorworks te leren"
   - title: "Vectorworks Spotlight"
     subtitle: "Voor technisch ontwerp en werkvoorbereiding"
-    price: "195"
+    price: "219"
     period: "1 dag"
     features:
       - "Licht, rigging en event design"
@@ -28,7 +28,7 @@ cards:
     footerNote: "Voor wie de basis beheerst en verder wil in Spotlight"
   - title: "Vectorworks 3D"
     subtitle: "3D modelleren in de praktijk"
-    price: "195"
+    price: "219"
     period: "1 dag"
     features:
       - "3D navigatie en views"
@@ -39,7 +39,7 @@ cards:
     footerNote: "Handig voor decors en maatwerkobjecten"
   - title: "Vectorworks Rendering"
     subtitle: "Renderen is een kunst!"
-    price: "195"
+    price: "219"
     period: "1 dag"
     features:
       - "Textures, lighting en backgrounds"

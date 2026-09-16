@@ -7,7 +7,7 @@ reviewedCopy: true
 sidebar:
   title: "Kosten:"
   paragraphs:
-    - "Prijs: € 195,- per persoon excl. BTW"
+    - "Prijs: € 219,- per persoon excl. BTW"
     - "Aantal deelnemers: groep van minimaal 3 deelnemers, individuele deelname mogelijk"
     - "Tijdsduur: 1 dag à 6 uur"
     - "Dag: woensdag, donderdag of vrijdag"

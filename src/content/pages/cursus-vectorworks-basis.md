@@ -7,7 +7,7 @@ reviewedCopy: true
 sidebar:
   title: "Cursusinformatie:"
   paragraphs:
-    - "Prijs: € 495,- per persoon excl. BTW"
+    - "Prijs: € 519,- per persoon excl. BTW"
     - "Aantal deelnemers: groep van minimaal 3 deelnemers, individuele deelname en privé training mogelijk."
     - "Tijdsduur: 3 dagen à 6 uur per dag"
     - "Dag: woensdag, donderdag of vrijdag"
