@@ -2,6 +2,12 @@
 
 declare(strict_types=1);
 
+if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'GET') {
+    header('Allow: GET');
+    http_response_code(405);
+    exit;
+}
+
 require __DIR__ . '/shared.php';
 require __DIR__ . '/altcha-support.php';
 

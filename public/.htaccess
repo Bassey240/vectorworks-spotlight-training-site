@@ -3,6 +3,9 @@ RewriteEngine On
 # Block direct access to hidden files, except ACME/.well-known paths
 RewriteRule "(^|/)\.(?!well-known(?:/|$))" - [F]
 
+# Only the three form endpoints may execute PHP over HTTP. Includes stay usable.
+RewriteRule "^(?!api/(?:contact|aanmelden|altcha-challenge)\.php$).*\.php(?:/|$)" - [F,L,NC]
+
 # Force HTTPS and the apex domain
 RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/ [NC]
 RewriteCond %{HTTPS} !=on [OR]

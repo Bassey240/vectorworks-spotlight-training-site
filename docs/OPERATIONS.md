@@ -92,6 +92,55 @@ Nooit committen:
 - ALTCHA secrets
 - SMTP credentials
 
+## PHP endpoint hardening
+
+The training website is static except for three public PHP endpoints. The root
+`.htaccess` denies HTTP requests to all other `.php` paths, including path-info
+variants; PHP can still include its helper and ALTCHA library files internally.
+
+- `/api/contact.php` and `/api/aanmelden.php`: POST only; other methods return
+  `405` with `Allow: POST`, before config loading or storage writes.
+- `/api/altcha-challenge.php`: GET only; other methods return `405` with `Allow: GET`.
+- API `.htaccess`: reject multipart bodies with `403`; enforce a 1 MiB request
+  limit with `413` before PHP parsing.
+- LiteSpeed API overrides: `post_max_size=8M`, `upload_max_filesize=1M`,
+  `memory_limit=128M`, `max_input_vars=100`, `max_input_nesting_level=8`,
+  `display_errors=Off`, `log_errors=On`.
+- Keep `session.upload_progress.enabled=Off` at the hosting configuration level.
+  Patched PHP is required; request limits do not replace runtime security updates.
+- Private directories must be `0700`, private files `0600`, owned by the existing
+  hosting user. `shared.php` sets `umask(0077)` for newly created storage files.
+- SQLite and file rate-limit cleanup expires only the current bucket. Short IP
+  windows must not discard the longer email or IP/user-agent history.
+
+Run `php tests/php-hardening.php` and `node tests/form-hardening.mjs` locally.
+The latter starts a loopback PHP server and captures mail locally. It tests normal
+and maximum-length inputs, signup interests, method rejection, and invalid ALTCHA.
+It does not emulate Apache/LiteSpeed rules: check access denial, multipart, `413`,
+and the effective PHP settings through the real web handler after deployment.
+Use an access-restricted temporary diagnostic with only selected settings, never
+a public `phpinfo()` page, and remove it after verification.
+
+Release order: verified commit on `main`, push primary Forgejo `origin`, push
+GitHub mirror, verify its generated `deploy` commit references the source commit,
+then fast-forward the production checkout. Keep existing security headers and
+consent/analytics behavior. Send two clearly marked form verification messages to
+the existing site inbox; distinguish mail-system acceptance from confirmed inbox
+receipt when mailbox access is unavailable.
+
+Before rollout, save the source/deploy commits, PHP settings, and private
+permission modes outside the webroot in an owner-only backup. Do not commit secrets.
+The 26 October baseline is deploy `8317131`, source `0ed392f`; the private snapshot
+is `hardening-backup-20261026-a402d5e8` inside the domain directory, outside the
+webroot. Binary timestamps are not evidence of installation time or worker restart.
+
+Rollback: revert the hardening commit on `main`, push Forgejo then the mirror,
+and deploy its generated rollback with `git pull --ff-only origin deploy`.
+Restore the recorded permission modes from `permissions.json` only if required;
+retain all form data and logs. Do not restore old secrets over current secrets.
+The unrelated missing Stream Deck ZIP must be investigated separately, including
+possible hosting quarantine; do not restore or delete tracked content blindly.
+
 ## SSL en DNS
 
 Als SSL of bereikbaarheid stuk is:
