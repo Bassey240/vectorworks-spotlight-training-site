@@ -6,7 +6,7 @@ RewriteRule "^(?!(?:contact|aanmelden|altcha-challenge)\.php$).*\.php(?:/|$)" - 
 RewriteCond %{HTTP:Content-Type} "^\s*multipart/form-data(?:\s*;|\s*$)" [NC]
 RewriteRule ^ - [F,L]
 
-# Enforce the body limit before PHP parses the request.
+# Apache body limit. LiteSpeed needs MaxReqBodySize in the domain/vhost config.
 LimitRequestBody 1048576
 
 <IfModule LiteSpeed>
