@@ -81,15 +81,20 @@ try {
       assert.equal(response.headers.get('location'), `/${endpoint === 'contact' ? 'contact' : 'aanmelden'}/?status=success`);
       console.log(`PASS ${form}: ${max ? 'maximum-length' : 'normal'} submission with signed ALTCHA`);
     }
-    for (const altcha of ['', 'invalid-payload']) {
+    for (let altcha of ['', 'invalid-payload', 'unsigned-challenge']) {
+      if (altcha === 'unsigned-challenge') {
+        const challenge = await (await request(`/api/altcha-challenge.php?form=${form}`)).json();
+        delete challenge.signature;
+        altcha = solve(challenge);
+      }
       const response = await request(`/api/${endpoint}.php`, { method: 'POST', body: new URLSearchParams({
         name: 'Rejected verification', phone: '0612345678', email: `${randomBytes(6).toString('hex')}@example.com`,
         message: 'This request must be rejected without sending mail.', privacy_accepted: '1', altcha,
       }) });
       assert.equal(response.status, 303);
-      assert.ok(response.headers.get('location').endsWith('status=captcha'));
+      assert.ok(response.headers.get('location').endsWith('status=captcha'), response.headers.get('location'));
     }
-    console.log(`PASS ${form}: missing and invalid ALTCHA rejected`);
+    console.log(`PASS ${form}: missing, malformed and unsigned ALTCHA rejected`);
   }
   const messages = readFileSync(mailFile, 'utf8');
   assert.equal(messages.split('--- message end ---').length - 1, 4);

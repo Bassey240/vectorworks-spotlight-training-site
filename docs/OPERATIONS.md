@@ -119,6 +119,8 @@ variants; PHP can still include its helper and ALTCHA library files internally.
   hosting user. `shared.php` sets `umask(0077)` for newly created storage files.
 - SQLite and file rate-limit cleanup expires only the current bucket. Short IP
   windows must not discard the longer email or IP/user-agent history.
+- Form ALTCHA payloads must contain a nonempty server signature. The library's
+  optional-signature support must not let an unsigned challenge bypass HMAC checks.
 
 Run `php tests/php-hardening.php` and `node tests/form-hardening.mjs` locally.
 The latter starts a loopback PHP server and captures mail locally. It tests normal
