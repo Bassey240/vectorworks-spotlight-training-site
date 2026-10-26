@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+// Private logs, databases and fallback counters must be readable only by this user.
+umask(0077);
+
 function app_private_root(): string
 {
     $fromEnv = getenv('STB_PRIVATE_ROOT');
@@ -373,8 +376,8 @@ function record_rate_attempt_sqlite(PDO $pdo, string $bucket, string $keyHash, i
     $pdo->beginTransaction();
 
     try {
-        $deleteStmt = $pdo->prepare('DELETE FROM rate_limit_hits WHERE created_at <= :cutoff');
-        $deleteStmt->execute(['cutoff' => $cutoff]);
+        $deleteStmt = $pdo->prepare('DELETE FROM rate_limit_hits WHERE bucket = :bucket AND created_at <= :cutoff');
+        $deleteStmt->execute(['bucket' => $bucket, 'cutoff' => $cutoff]);
 
         $insertStmt = $pdo->prepare('INSERT INTO rate_limit_hits (bucket, key_hash, created_at) VALUES (:bucket, :key_hash, :created_at)');
         $insertStmt->execute([
@@ -433,6 +436,11 @@ function record_rate_attempt_file(string $logsDir, string $bucket, string $keyHa
         }
 
         foreach ($data as $bucketName => $bucketValues) {
+            // Other buckets can have longer windows and expire on their own access.
+            if ($bucketName !== $bucket) {
+                continue;
+            }
+
             if (!is_array($bucketValues)) {
                 unset($data[$bucketName]);
                 continue;

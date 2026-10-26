@@ -1,0 +1,17 @@
+# Forms use application/x-www-form-urlencoded and do not accept uploads.
+RewriteEngine On
+RewriteCond %{HTTP:Content-Type} "^\s*multipart/form-data(?:\s*;|\s*$)" [NC]
+RewriteRule ^ - [F,L]
+
+# Enforce the body limit before PHP parses the request.
+LimitRequestBody 1048576
+
+<IfModule LiteSpeed>
+  php_value post_max_size 8M
+  php_value upload_max_filesize 1M
+  php_value memory_limit 128M
+  php_value max_input_vars 100
+  php_value max_input_nesting_level 8
+  php_flag display_errors Off
+  php_flag log_errors On
+</IfModule>
