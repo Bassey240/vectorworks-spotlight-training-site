@@ -1,5 +1,8 @@
 # Forms use application/x-www-form-urlencoded and do not accept uploads.
 RewriteEngine On
+# A child rewrite context does not automatically inherit the root PHP deny rule.
+RewriteRule "^(?!(?:contact|aanmelden|altcha-challenge)\.php$).*\.php(?:/|$)" - [F,L,NC]
+
 RewriteCond %{HTTP:Content-Type} "^\s*multipart/form-data(?:\s*;|\s*$)" [NC]
 RewriteRule ^ - [F,L]
 
