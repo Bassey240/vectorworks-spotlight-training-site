@@ -101,8 +101,15 @@ variants; PHP can still include its helper and ALTCHA library files internally.
 - `/api/contact.php` and `/api/aanmelden.php`: POST only; other methods return
   `405` with `Allow: POST`, before config loading or storage writes.
 - `/api/altcha-challenge.php`: GET only; other methods return `405` with `Allow: GET`.
-- API `.htaccess`: reject multipart bodies with `403`; enforce a 1 MiB request
-  limit with `413` before PHP parsing.
+- API `.htaccess`: reject multipart bodies with `403`. `LimitRequestBody 1048576`
+  configures Apache's 1 MiB limit, but live LiteSpeed testing on 26 October showed
+  it does not enforce this directive in the directory context (oversized requests
+  reached PHP and returned `303`). Do not claim the 1 MiB limit is active yet.
+  Numeric rewrite alternatives were also ineffective and were removed.
+  mijn.host must set `MaxReqBodySize 1M` for this domain's virtual host and reload
+  the affected configuration/workers. Verify `413` for bodies above 1 MiB,
+  including streaming requests without Content-Length, before marking it complete.
+  Provider reference: https://docs.litespeedtech.com/lsws/configuration/#maxreqbodysize
 - LiteSpeed API overrides: `post_max_size=8M`, `upload_max_filesize=1M`,
   `memory_limit=128M`, `max_input_vars=100`, `max_input_nesting_level=8`,
   `display_errors=Off`, `log_errors=On`.
@@ -133,6 +140,20 @@ permission modes outside the webroot in an owner-only backup. Do not commit secr
 The 26 October baseline is deploy `8317131`, source `0ed392f`; the private snapshot
 is `hardening-backup-20261026-a402d5e8` inside the domain directory, outside the
 webroot. Binary timestamps are not evidence of installation time or worker restart.
+
+Verified through the web handler on 26 October: PHP `8.3.36`, SAPI `litespeed`,
+all seven API PHP overrides above applied, with session upload progress,
+remote includes, and PHP version exposure disabled. The temporary probe was
+accessible only from this server's own addresses and was removed after verification.
+All five existing security headers matched the pre-release baseline.
+
+The live browser checks submitted exactly two marked test messages on 26 October:
+contact at 21:01 CET and signup at 21:02 CET. Both returned `status=success`, were
+accepted by sendmail, and were found in the recipient's Maildir (one of each).
+Signup included maximum-length text inputs and two interests; existing input
+normalization trims trailing whitespace. Plausible form submission and pageview
+requests returned `202`; tracker loading returned `200`. The browser had no
+cookies, console errors, or warnings. Credential rotation remains deferred.
 
 Rollback: revert the hardening commit on `main`, push Forgejo then the mirror,
 and deploy its generated rollback with `git pull --ff-only origin deploy`.
