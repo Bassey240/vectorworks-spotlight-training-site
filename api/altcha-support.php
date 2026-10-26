@@ -217,7 +217,8 @@ function altcha_payload_from_array(array $payload): ?Payload
     $counter = $solutionData['counter'] ?? null;
     $derivedKey = $solutionData['derivedKey'] ?? null;
 
-    if (!is_array($parametersData) || ($signature !== null && !is_string($signature))) {
+    // The library supports unsigned challenges; public forms must authenticate theirs.
+    if (!is_array($parametersData) || !is_string($signature) || $signature === '') {
         return null;
     }
 
